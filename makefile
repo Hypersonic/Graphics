@@ -1,20 +1,24 @@
+MACHINE = $(shell uname -s)
 INCLUDES = -Isrc/
-LIBS = 
 DIRS = geometry canvas
 OBJS = $(patsubst src/%.cpp,obj/%.o, $(wildcard src/*.cpp) $(foreach d, $(DIRS), $(wildcard src/$(d)/*.cpp)))
+
+CXX = g++
+PLATFORM_LIBS = 
+
+ifeq ($(MACHINE), Darwin)
+	CXX = clang++ -stdlib=libc++
+	PLATFORM_LIBS = -framework Cocoa -framework OpenGL -framework SDL2
+endif
+
+LIBS = $(PLATFORM_LIBS)
 EXEC = graphics.out
 
 main: dirs $(OBJS)
-	g++ -o $(EXEC) $(OBJS) $(LIBS)
+	$(CXX) -o $(EXEC) $(OBJS) $(LIBS)
 
 obj/%.o: src/%.cpp
-	g++ -c -o $@ $<
-
-obj/geometry/%.o: src/geometry/%.cpp
-	g++ -c -o $@ $<
-
-obj/canvas/%.o: src/canvas/%.cpp
-	g++ -c -o $@ $<
+	$(CXX) -c -o $@ $<
 
 dirs:
 	@test -d obj || mkdir obj
