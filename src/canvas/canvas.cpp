@@ -15,6 +15,10 @@ void Canvas::putpixel(int x, int y, int r, int g, int b, int a) {
   SDL_RenderDrawPoint(_rend, x, y);
 }
 
+void Canvas::draw_point(const Vec2i point, const Color color) {
+  putpixel(point[0], point[1], color[0], color[1], color[2], color[3]);
+}
+
 void Canvas::render() {
   SDL_RenderPresent(_rend);
 }
