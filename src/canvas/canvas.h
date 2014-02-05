@@ -1,7 +1,10 @@
 #pragma once
+
 #include <SDL2/SDL.h>
+#include "color.h"
 
 class Canvas {
+friend class Color;
 protected:
   int _width, _height;
   SDL_Window* _window;
