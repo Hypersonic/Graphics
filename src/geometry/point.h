@@ -31,18 +31,17 @@ public:
   double dist2 (Vec2i &vec) const { return (*this-vec).length2(); }
 
 };
-typedef const class Vec2i Point2i;
 
 class Line {
 protected:
-  Point2i _p1, _p2;
+  Vec2i _p1, _p2;
 public:
-  Line() : _p1(Point2i()), _p2(Point2i()) {}
-  Line(Point2i p1, Point2i p2) : _p1(p1), _p2(p2) {}
+  Line() : _p1(Vec2i()), _p2(Vec2i()) {}
+  Line(Vec2i p1, Vec2i p2) : _p1(p1), _p2(p2) {}
 
-  Point2i  operator [](int index) const { return (&_p1)[index]; }
-  Point2i& operator [](int index)       { return (&_p1)[index]; }
+  Vec2i  operator [](int index) const { return (&_p1)[index]; }
+  Vec2i& operator [](int index)       { return (&_p1)[index]; }
 
-  double length  () const { return _p1.dist(_p2); }
-  double length2 () const { return _p1.dist2(_p2); }
+  double length  () { return _p1.dist(_p2);  }
+  int    length2 () { return _p1.dist2(_p2); }
 };
