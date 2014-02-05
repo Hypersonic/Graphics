@@ -10,13 +10,69 @@ Canvas::~Canvas() {
   SDL_Quit();
 }
 
-void Canvas::putpixel(int x, int y, int r, int g, int b, int a) {
+void Canvas::_set_color(int r, int g, int b, int a) {
   SDL_SetRenderDrawColor(_rend, r, g, b, a);
+}
+
+void Canvas::_set_color(Color color) {
+  _set_color(color[0], color[1], color[2], color[3]);
+}
+
+void Canvas::_put_pixel(int x, int y) {
   SDL_RenderDrawPoint(_rend, x, y);
+}
+
+void Canvas::_put_pixel(Vec2i point) {
+  _put_pixel(point[0], point[1]);
+}
+
+void Canvas::putpixel(int x, int y, int r, int g, int b, int a) {
+  _set_color(r,g,b,a);
+  _put_pixel(x, y);
 }
 
 void Canvas::draw_point(const Vec2i point, const Color color) {
   putpixel(point[0], point[1], color[0], color[1], color[2], color[3]);
+}
+
+void Canvas::draw_line(const Line line, const Color color) {
+  Vec2i p1;
+  Vec2i p2;
+  _set_color(color);
+  if (line[0][0] < line[0][1]) {
+    p1 = line[0];
+    p2 = line[1];
+  } else {
+    p1 = line[1];
+    p2 = line[0];
+  }
+  int dx = p2[0] - p1[0];
+  int dy = p2[1] - p1[1];
+  float err = 0;
+  // Line is vertical, special case
+  if (dx == 0) {
+    if (dy < 0) { // swap so that dy is positive
+      Vec2i swap = p1;
+      p1 = p2;
+      p2 = swap;
+    }
+    for (int i = p1[1]; i <= p2[1]; i++) {
+      _put_pixel(p1[0], i);
+    }
+    return;
+  }
+  // Line is not vertical, do the normal algorithm
+  float derr = fabs( (float)dy / dx);
+  printf("dx: %d, dy: %d, derr: %f\n", dx, dy, derr);
+  int y = line[0][1];
+  for (int x = line[0][0]; x < line[1][0]; x++) {
+    _put_pixel(x, y);
+    err += derr;
+    if (err >= 0.5) {
+      y++;
+      err--;
+    }
+  }
 }
 
 void Canvas::render() {
