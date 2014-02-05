@@ -63,7 +63,6 @@ void Canvas::draw_line(const Line line, const Color color) {
   }
   // Line is not vertical, do the normal algorithm
   float derr = fabs( (float)dy / dx);
-  printf("dx: %d, dy: %d, derr: %f\n", dx, dy, derr);
   int y = line[0][1];
   for (int x = line[0][0]; x < line[1][0]; x++) {
     _put_pixel(x, y);
@@ -71,6 +70,35 @@ void Canvas::draw_line(const Line line, const Color color) {
     if (err >= 0.5) {
       y++;
       err--;
+    }
+  }
+}
+
+void Canvas::draw_circle(const Circle circle, const Color color) {
+  int x = circle.radius(), y = 0;
+  int radius_err = 1-x;
+
+  _set_color(color);
+
+  int cx = circle.center()[0];
+  int cy = circle.center()[1];
+
+  while (x >= y) {
+    _put_pixel(x + cx, y + cy);
+    _put_pixel(y + cx, x + cy);
+    _put_pixel(-x + cx, y + cy);
+    _put_pixel(-y + cx, x + cy);
+    _put_pixel(-x + cx, -y + cy);
+    _put_pixel(-y + cx, -x + cy);
+    _put_pixel(x + cx, -y + cy);
+    _put_pixel(y + cx, -x + cy);
+    
+    y++;
+    if (radius_err < 0) {
+      radius_err += 2 * y + 1;
+    } else {
+      x--;
+      radius_err += 2 * (y-x+1);
     }
   }
 }

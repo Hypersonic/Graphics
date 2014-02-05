@@ -17,8 +17,11 @@ int main(int argc, char** argv) {
   Vec2i p4 = Vec2i(10, 50);
   Line l2 = Line(p4, p3);
 
+  Circle c = Circle(Vec2i(100, 100), 40);
+
   can.draw_line(l, col);
   can.draw_line(l2, col);
+  can.draw_circle(c, col);
   can.render();
 
   char buffer[256];
