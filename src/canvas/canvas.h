@@ -23,6 +23,8 @@ public:
   void draw_point(const Vec2i point, const Color color);
   void draw_line(const Line line, const Color color); //Bresenham's line algo, AKA: no AA
   void draw_circle(const Circle circle, const Color color);
+  void draw_circle2(const Circle circle, const Color color); // Circle algo based on drawing lines
+  void draw_circle3(const Circle circle, const Color color); // Circle algo based on tracing points
   void render(); //render current pixels
   void clear(); // Fill with black
 };

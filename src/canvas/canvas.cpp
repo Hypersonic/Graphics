@@ -63,8 +63,8 @@ void Canvas::draw_line(const Line line, const Color color) {
   }
   // Line is not vertical, do the normal algorithm
   float derr = fabs( (float)dy / dx);
-  int y = line[0][1];
-  for (int x = line[0][0]; x < line[1][0]; x++) {
+  int y = p1[1];
+  for (int x = p1[0]; x < p2[0]; x++) {
     _put_pixel(x, y);
     err += derr;
     if (err >= 0.5) {
@@ -102,6 +102,41 @@ void Canvas::draw_circle(const Circle circle, const Color color) {
     }
   }
 }
+
+void Canvas::draw_circle2(const Circle circle, const Color color) {
+  float resolution = 0.001f;
+  float x = circle.center()[0];
+  float y = circle.center()[1] - circle.radius();
+  float nx, ny;
+  float dtheta = resolution / circle.radius();
+  float mvdist = resolution;
+
+  for (float theta = 0; theta < 2 * M_PI; theta += dtheta) {
+    nx = x + cos(theta) * mvdist;
+    ny = y + sin(theta) * mvdist;
+
+    draw_line(Line(Vec2i(nx, ny), Vec2i(x, y)), color);
+    x = nx;
+    y = ny;
+  }
+}
+
+void Canvas::draw_circle3(const Circle circle, const Color color) {
+  float resolution = 0.001f;
+  float x = circle.center()[0];
+  float y = circle.center()[1] - circle.radius();
+  float dtheta = resolution / circle.radius();
+  float mvdist = resolution;
+
+  for (float theta = 0; theta < 2 * M_PI; theta += dtheta) {
+
+    draw_point(Vec2i(x, y), color);
+
+    x += cos(theta) * mvdist;
+    y += sin(theta) * mvdist;
+  }
+}
+
 
 void Canvas::render() {
   SDL_RenderPresent(_rend);
