@@ -27,7 +27,7 @@ int main(int argc, char** argv) {
 
   Quad q = Quad(Vec2i(50, 50), Vec2i(80, 70), Vec2i(23, 55), Vec2i(90, 120));
 
-  Rect r = Rect(Vec2i(3, 4), Vec2i(120, 101));
+  Rect r = Rect(Vec2i(3, 4), Vec2i(120, 10));
 
   Square s = Square(Vec2i(300, 300), 40);
 
