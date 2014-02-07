@@ -78,6 +78,12 @@ void Canvas::draw_line(const Line line, const Color color) {
   }
 }
 
+void Canvas::draw_tri(const Tri tri, const Color color) {
+  for (int i = 0; i < 3; i++) {
+    draw_line(Line(tri[i], tri[(i+1)%3]), color);
+  }
+}
+
 void Canvas::draw_circle(const Circle circle, const Color color) {
   int x = circle.radius(), y = 0;
   int radius_err = 1-x;

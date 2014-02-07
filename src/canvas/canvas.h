@@ -25,6 +25,8 @@ public:
 
   void draw_line(const Line line, const Color color); //Bresenham's line algo, AKA: no AA
 
+  void draw_tri(const Tri tri, const Color color); // Draw Triangle outline
+
   void draw_circle(const Circle circle, const Color color); // Midpoint circle algo
   void draw_circle2(const Circle circle, const Color color, float resolution=0.1f); // Circle algo based on drawing lines
   void draw_circle3(const Circle circle, const Color color, float resolution=1.0f); // Circle algo based on tracing points

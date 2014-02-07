@@ -24,6 +24,7 @@ int main(int argc, char** argv) {
   Circle c2 = Circle(Vec2i(200, 100), 40);
   Circle c3 = Circle(Vec2i(100, 200), 40);
 
+  Tri t = Tri(Vec2i(230, 250), Vec2i(200, 300), Vec2i(250, 340)); 
 
   Quad q = Quad(Vec2i(50, 50), Vec2i(80, 70), Vec2i(23, 55), Vec2i(90, 120));
 
@@ -33,6 +34,8 @@ int main(int argc, char** argv) {
 
   can.draw_line(l, col);
   can.draw_line(l2, col2);
+
+  can.draw_tri(t, col);
 
   can.draw_circle(c, col);
   can.draw_circle2(c2, col);
