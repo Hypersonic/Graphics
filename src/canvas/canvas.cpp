@@ -71,9 +71,9 @@ void Canvas::draw_line(const Line line, const Color color) {
       _put_pixel(x, y);
     }
     while (err >= 0.5) {
+      _put_pixel(x, y);
       y += dir;
       err--;
-      _put_pixel(x, y);
     }
   }
 }
