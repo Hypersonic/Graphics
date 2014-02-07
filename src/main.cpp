@@ -25,7 +25,9 @@ int main(int argc, char** argv) {
   Circle c3 = Circle(Vec2i(100, 200), 40);
 
 
-  Quad q = Quad(Vec2i(50, 50), Vec2i(80, 70), Vec2i(90, 120), Vec2i(23, 55));
+  Quad q = Quad(Vec2i(50, 50), Vec2i(80, 70), Vec2i(23, 55), Vec2i(90, 120));
+
+  Rect r = Rect(Vec2i(3, 4), Vec2i(120, 101));
 
   can.draw_line(l, col);
   can.draw_line(l2, col2);
@@ -35,6 +37,8 @@ int main(int argc, char** argv) {
   can.draw_circle3(c3, col);
 
   can.draw_quad(q, col2);
+
+  can.draw_quad(r, col);
 
   can.render();
 
