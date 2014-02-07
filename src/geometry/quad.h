@@ -4,7 +4,7 @@
 
 class Quad {
 protected:
-  Vec2i _tl, _tr, _br, _bl;
+  const Vec2i _tl, _tr, _br, _bl;
 public:
   Quad() : _tl(Vec2i()), _tr(Vec2i()), _bl(Vec2i()), _br(Vec2i()) {}
   Quad(Vec2i topleft, Vec2i topright, Vec2i bottomleft, Vec2i bottomright) : _tl(topleft), _tr(topright), _bl(bottomleft), _br(bottomright) {}

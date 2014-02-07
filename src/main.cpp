@@ -29,6 +29,8 @@ int main(int argc, char** argv) {
 
   Rect r = Rect(Vec2i(3, 4), Vec2i(120, 101));
 
+  Square s = Square(Vec2i(300, 300), 40);
+
   can.draw_line(l, col);
   can.draw_line(l2, col2);
 
@@ -39,6 +41,8 @@ int main(int argc, char** argv) {
   can.draw_quad(q, col2);
 
   can.draw_rect(r, col);
+
+  can.draw_rect(s, col);
 
   can.render();
 

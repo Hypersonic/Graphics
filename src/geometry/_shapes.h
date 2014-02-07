@@ -5,3 +5,4 @@
 #include "circle.h"
 #include "quad.h"
 #include "rect.h"
+#include "square.h"
