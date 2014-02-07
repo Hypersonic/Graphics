@@ -24,10 +24,12 @@ public:
   bool operator == (Vec2i &vec) const { return _x == vec._x && _y == vec._y; }
   bool operator != (Vec2i &vec) const { return _x != vec._x && _y != vec._y; }
 
-  double length  () const { return sqrt((double)_x*_x+_y*_y); }
+  float length  () const { return sqrt((float)_x*_x+_y*_y); }
   int    length2 () const { return _x*_x+_y*_y;               }
 
-  double dist  (Vec2i &vec) const { return (*this-vec).length();  }
-  double dist2 (Vec2i &vec) const { return (*this-vec).length2(); }
+  float dist  (Vec2i &vec) const { return (*this-vec).length();  }
+  float dist2 (Vec2i &vec) const { return (*this-vec).length2(); }
+
+  Vec2i perp () const { return Vec2i(-_y, _x); }
 
 };
