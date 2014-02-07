@@ -31,4 +31,3 @@ public:
   double dist2 (Vec2i &vec) const { return (*this-vec).length2(); }
 
 };
-

@@ -13,4 +13,3 @@ public:
   Vec2i& operator [](int index)       { return (&_tl)[index]; }
 
 };
-
