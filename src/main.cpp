@@ -38,7 +38,7 @@ int main(int argc, char** argv) {
 
   can.draw_quad(q, col2);
 
-  can.draw_quad(r, col);
+  can.draw_rect(r, col);
 
   can.render();
 

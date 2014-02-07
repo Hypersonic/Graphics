@@ -145,6 +145,11 @@ void Canvas::draw_quad(const Quad quad, const Color color) {
   }
 }
 
+void Canvas::draw_rect(const Rect rect, const Color color) {
+  // Wrap the draw_quad function, though we can do optimizations to this later if need be.
+  draw_quad(rect, color);
+}
+
 void Canvas::render() {
   SDL_RenderPresent(_rend);
 }

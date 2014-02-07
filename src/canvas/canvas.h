@@ -30,6 +30,7 @@ public:
   void draw_circle3(const Circle circle, const Color color, float resolution=1.0f); // Circle algo based on tracing points
   
   void draw_quad(const Quad quad, const Color color); // Draw the outline of a quad
+  void draw_rect(const Rect rect, const Color color); // Draw the outline of a rect
 
   void render(); //render current pixels
   void clear(); // Fill with black
