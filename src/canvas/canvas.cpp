@@ -56,7 +56,7 @@ void Canvas::draw_line(const Line line, const Color color) {
       p1 = p2;
       p2 = swap;
     }
-    for (int i = p1[1]; i <= p2[1]; i++) {
+    for (int i = p1[1]; i < p2[1]; i++) {
       _put_pixel(p1[0], i);
     }
     return;
@@ -65,7 +65,7 @@ void Canvas::draw_line(const Line line, const Color color) {
   float derr = fabs( (float)dy / dx);
   int y = p1[1];
   int dir = derr / ((float)dy/dx); // Figure out whether to move y up or down
-  for (int x = p1[0]; x <= p2[0]; x++) {
+  for (int x = p1[0]; x < p2[0]; x++) {
     err += derr;
     if (err < 0.5) {
       _put_pixel(x, y);
