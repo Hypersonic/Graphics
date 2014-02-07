@@ -39,7 +39,7 @@ void Canvas::draw_line(const Line line, const Color color) {
   Vec2i p1;
   Vec2i p2;
   _set_color(color);
-  if (line[0][0] < line[0][1]) {
+  if (line[0][0] < line[1][0]) {
     p1 = line[0];
     p2 = line[1];
   } else {
@@ -64,12 +64,16 @@ void Canvas::draw_line(const Line line, const Color color) {
   // Line is not vertical, do the normal algorithm
   float derr = fabs( (float)dy / dx);
   int y = p1[1];
-  for (int x = p1[0]; x < p2[0]; x++) {
-    _put_pixel(x, y);
+  int dir = derr / ((float)dy/dx); // Figure out whether to move y up or down
+  for (int x = p1[0]; x <= p2[0]; x++) {
     err += derr;
-    if (err >= 0.5) {
-      y++;
+    if (err < 0.5) {
+      _put_pixel(x, y);
+    }
+    while (err >= 0.5) {
+      y += dir;
       err--;
+      _put_pixel(x, y);
     }
   }
 }
@@ -103,8 +107,7 @@ void Canvas::draw_circle(const Circle circle, const Color color) {
   }
 }
 
-void Canvas::draw_circle2(const Circle circle, const Color color) {
-  float resolution = 0.001f;
+void Canvas::draw_circle2(const Circle circle, const Color color, float resolution) {
   float x = circle.center()[0];
   float y = circle.center()[1] - circle.radius();
   float nx, ny;
@@ -121,8 +124,7 @@ void Canvas::draw_circle2(const Circle circle, const Color color) {
   }
 }
 
-void Canvas::draw_circle3(const Circle circle, const Color color) {
-  float resolution = 0.001f;
+void Canvas::draw_circle3(const Circle circle, const Color color, float resolution) {
   float x = circle.center()[0];
   float y = circle.center()[1] - circle.radius();
   float dtheta = resolution / circle.radius();
@@ -137,6 +139,11 @@ void Canvas::draw_circle3(const Circle circle, const Color color) {
   }
 }
 
+void Canvas::draw_quad(const Quad quad, const Color color) {
+  for (int i = 0; i < 4; i++) {
+    draw_line(Line(quad[i], quad[(i+1)%4]), color);
+  }
+}
 
 void Canvas::render() {
   SDL_RenderPresent(_rend);

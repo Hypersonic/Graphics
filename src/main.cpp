@@ -1,11 +1,12 @@
 #include <stdio.h>
-#include "geometry/point.h"
+#include "geometry/_shapes.h"
 #include "canvas/canvas.h"
 #include "canvas/color.h"
 
 int main(int argc, char** argv) {
   printf("Super cool stuff about graphics!\n");
   Canvas can = Canvas(640, 480);
+
   can.clear();
 
   Vec2i p1 = Vec2i(300, 10);
@@ -23,11 +24,18 @@ int main(int argc, char** argv) {
   Circle c2 = Circle(Vec2i(200, 100), 40);
   Circle c3 = Circle(Vec2i(100, 200), 40);
 
+
+  Quad q = Quad(Vec2i(50, 50), Vec2i(80, 70), Vec2i(90, 120), Vec2i(23, 55));
+
   can.draw_line(l, col);
   can.draw_line(l2, col2);
+
   can.draw_circle(c, col);
   can.draw_circle2(c2, col);
   can.draw_circle3(c3, col);
+
+  can.draw_quad(q, col2);
+
   can.render();
 
   char buffer[256];
