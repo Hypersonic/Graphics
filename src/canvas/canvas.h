@@ -31,6 +31,7 @@ public:
   
   void draw_quad(const Quad quad, const Color color); // Draw the outline of a quad
   void draw_rect(const Rect rect, const Color color); // Draw the outline of a rect
+  void draw_square(const Square square, const Color color); // Draw the outline of a square
 
   void render(); //render current pixels
   void clear(); // Fill with black

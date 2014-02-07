@@ -150,6 +150,11 @@ void Canvas::draw_rect(const Rect rect, const Color color) {
   draw_quad(rect, color);
 }
 
+void Canvas::draw_square(const Square square, const Color color) {
+  // Wrap the draw_rect function, though we can optimize later if needed
+  draw_rect(square, color);
+}
+
 void Canvas::render() {
   SDL_RenderPresent(_rend);
 }
