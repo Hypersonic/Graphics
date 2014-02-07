@@ -18,7 +18,7 @@ main: dirs $(OBJS)
 	$(CXX) -o $(EXEC) $(OBJS) $(LIBS)
 
 obj/%.o: src/%.cpp
-	$(CXX) -c -o $@ $< $(INCLUDES)
+	$(CXX) -Wall -c -o $@ $< $(INCLUDES)
 
 dirs:
 	@test -d obj || mkdir obj
