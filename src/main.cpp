@@ -15,6 +15,7 @@ int main(int argc, char** argv) {
   
   Color col  = Color(255, 0, 0);
   Color col2 = Color(0, 255, 0);
+  Color col3 = col + col2;
 
   Vec2i p3 = Vec2i(10, 20);
   Vec2i p4 = Vec2i(10, 30);
@@ -45,7 +46,7 @@ int main(int argc, char** argv) {
 
   can.draw_rect(r, col);
 
-  can.draw_rect(s, col);
+  can.draw_rect(s, col3);
 
   can.render();
 
