@@ -22,7 +22,7 @@ public:
   void operator += (Vec2i &vec)       { _x += vec._x; _y += vec._y;          }
   void operator -= (Vec2i &vec)       { _x -= vec._x; _y -= vec._y;          }
   bool operator == (Vec2i &vec) const { return _x == vec._x && _y == vec._y; }
-  bool operator != (Vec2i &vec) const { return _x != vec._x && _y != vec._y; }
+  bool operator != (Vec2i &vec) const { return _x != vec._x || _y != vec._y; }
 
   float length  () const { return sqrt((float)_x*_x+_y*_y); }
   int    length2 () const { return _x*_x+_y*_y;               }
