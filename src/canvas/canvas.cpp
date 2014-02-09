@@ -36,45 +36,10 @@ void Canvas::draw_point(const Vec2i point, const Color color) {
 }
 
 void Canvas::draw_line(const Line line, const Color color) {
-  Vec2i p1;
-  Vec2i p2;
   _set_color(color);
-  if (line[0][0] < line[1][0]) {
-    p1 = line[0];
-    p2 = line[1];
-  } else {
-    p1 = line[1];
-    p2 = line[0];
-  }
-  int dx = p2[0] - p1[0];
-  int dy = p2[1] - p1[1];
-  float err = 0;
-  // Line is vertical, special case
-  if (dx == 0) {
-    if (dy < 0) { // swap so that dy is positive
-      Vec2i swap = p1;
-      p1 = p2;
-      p2 = swap;
-    }
-    for (int i = p1[1]; i < p2[1]; i++) {
-      _put_pixel(p1[0], i);
-    }
-    return;
-  }
-  // Line is not vertical, do the normal algorithm
-  float derr = fabs( (float)dy / dx);
-  int y = p1[1];
-  int dir = derr / ((float)dy/dx); // Figure out whether to move y up or down
-  for (int x = p1[0]; x < p2[0]; x++) {
-    err += derr;
-    if (err < 0.5) {
-      _put_pixel(x, y);
-    }
-    while (err >= 0.5) {
-      _put_pixel(x, y);
-      y += dir;
-      err--;
-    }
+  std::vector<Vec2i> pts = line.points();
+  for (int i = 0; i < pts.size(); i++) {
+    _put_pixel(pts[i]);
   }
 }
 

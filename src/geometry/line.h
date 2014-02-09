@@ -1,5 +1,6 @@
 #pragma once
 
+#include <vector>
 #include "point.h"
 
 class Line {
@@ -14,4 +15,7 @@ public:
 
   double length  () { return _p1.dist(_p2);  }
   int    length2 () { return _p1.dist2(_p2); }
+
+  std::vector<Vec2i> points () const; // Get all the points that should be included in the raster of this line
+                                // Based on Bresenham's Algorithm
 };

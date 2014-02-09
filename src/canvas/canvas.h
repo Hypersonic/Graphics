@@ -2,6 +2,7 @@
 
 #include <SDL2/SDL.h>
 #include <math.h>
+#include <vector>
 #include "color.h"
 #include "geometry/_shapes.h"
 
