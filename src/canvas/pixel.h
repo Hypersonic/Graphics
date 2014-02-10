@@ -10,6 +10,7 @@ protected:
 public:
   Pixel() : _pt(Vec2i()), _col(Color()) {}
   Pixel(Vec2i pt, Color col) : _pt(pt), _col(col) {}
+  Pixel(int x, int y, int r, int g, int b, int a) : _pt(Vec2i(x,y)), _col(Color(r,g,b,a)) {}
 
   Vec2i  point() const { return _pt; }
   Vec2i& point()       { return _pt; }

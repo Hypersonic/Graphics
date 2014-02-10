@@ -3,19 +3,22 @@
 #include <SDL2/SDL.h>
 #include <math.h>
 #include <vector>
+#include <stdio.h>
 #include "color.h"
 #include "pixel.h"
 #include "geometry/_shapes.h"
 
 class Canvas {
-friend class Color;
 private:
   void _set_color(int r, int g, int b, int a);
   void _set_color(Color color);
   void _put_pixel(int x, int y);
   void _put_pixel(Vec2i point);
+  Pixel _get_pixel(int x, int y);
 protected:
   int _width, _height;
+  Pixel* _img;
+  Color _col;
   SDL_Window* _window;
   SDL_Renderer* _rend;
 public:
@@ -40,4 +43,6 @@ public:
 
   void render(); //render current pixels
   void clear(); // Fill with black
+
+  void saveCurrImage(); // save the current rendered image. Very slow, yo
 };

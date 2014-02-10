@@ -4,26 +4,35 @@ Canvas::Canvas(int width, int height) : _width(width), _height(height) {
   SDL_Init(SDL_INIT_VIDEO);
 
   SDL_CreateWindowAndRenderer(_width, _height, 0, &_window, &_rend);
+
+  _img = (Pixel*) calloc(_width * _height, sizeof(Pixel));
 }
 
 Canvas::~Canvas() {
   SDL_Quit();
 }
 
+Pixel Canvas::_get_pixel(int x, int y) {
+  return _img[y * _width + x];
+}
+
 void Canvas::_set_color(int r, int g, int b, int a) {
-  SDL_SetRenderDrawColor(_rend, r, g, b, a);
+  _set_color(Color(r, g, b, a));
 }
 
 void Canvas::_set_color(Color color) {
-  _set_color(color[0], color[1], color[2], color[3]);
+  SDL_SetRenderDrawColor(_rend, color[0], color[1], color[2], color[3]);
+  _col = color;
 }
 
 void Canvas::_put_pixel(int x, int y) {
-  SDL_RenderDrawPoint(_rend, x, y);
+  _put_pixel(Vec2i(x, y));
 }
 
 void Canvas::_put_pixel(Vec2i point) {
-  _put_pixel(point[0], point[1]);
+  SDL_RenderDrawPoint(_rend, point[0], point[1]);
+  Pixel p = Pixel(point, _col);
+  _img[point[1] * _width + point[0]] = p;
 }
 
 void Canvas::putpixel(const Pixel pixel) {
@@ -140,5 +149,26 @@ void Canvas::clear() {
     for (int j = 0; j < _height; j++) {
       putpixel(i, j, 0, 0, 0, 255); // Put black everywhere
     }
+  }
+}
+
+void Canvas::saveCurrImage() {
+  FILE * file = fopen("img.ppm", "w");
+
+  // Write PPM header
+  fputs("P3\n", file); // PPM File type
+  fprintf(file, "%d %d\n", _width, _height); // Width and height specifiers
+  fputs("255\n", file); // Bits per pixel
+  // Done with header
+  for (int j = 0; j < _height; j++) {
+    for (int i = 0; i < _width; i++) {
+      Pixel p = _get_pixel(i, j);
+      Color c = p.color();
+      fprintf(file, "%d %d %d", c[0], c[1], c[2]);
+      if (i != _width - 1) {
+        putc(' ', file);
+      }
+    }
+    fputc('\n', file);
   }
 }

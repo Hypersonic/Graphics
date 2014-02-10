@@ -51,6 +51,10 @@ int main(int argc, char** argv) {
 
   can.render();
 
+  debug("Getting img\n");
+  can.saveCurrImage();
+  debug("Done\n");
+
   char buffer[256];
   fgets(buffer, sizeof(buffer), stdin);
 
