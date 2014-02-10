@@ -23,6 +23,6 @@ public:
   
   void operator += (Pixel& pixel)       { _pt += pixel._pt; _col += pixel._col;          }
   void operator -= (Pixel& pixel)       { _pt -= pixel._pt; _col -= pixel._col;          }
-  bool operator == (Pixel& pixel)       { return _pt == pixel._pt && _col == pixel._col; }
-  bool operator != (Pixel& pixel)       { return _pt != pixel._pt || _col != pixel._col; }
+  bool operator == (Pixel& pixel) const { return _pt == pixel._pt && _col == pixel._col; }
+  bool operator != (Pixel& pixel) const { return _pt != pixel._pt || _col != pixel._col; }
 };
