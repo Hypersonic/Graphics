@@ -1,10 +1,11 @@
 #include <stdio.h>
 #include "geometry/_shapes.h"
+#include "debug.h"
 #include "canvas/canvas.h"
 #include "canvas/color.h"
 
 int main(int argc, char** argv) {
-  printf("Super cool stuff about graphics!\n");
+  debug("Super cool stuff about graphics!\n");
   Canvas can = Canvas(640, 480);
 
   can.clear();
