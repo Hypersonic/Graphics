@@ -5,10 +5,11 @@ Canvas::Canvas(int width, int height) : _width(width), _height(height) {
 
   SDL_CreateWindowAndRenderer(_width, _height, 0, &_window, &_rend);
 
-  _img = (Pixel*) calloc(_width * _height, sizeof(Pixel));
+  _img = (Pixel*) malloc(_width * _height * sizeof(Pixel));
 }
 
 Canvas::~Canvas() {
+  free(_img);
   SDL_Quit();
 }
 
