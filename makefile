@@ -5,6 +5,7 @@ OBJS = $(patsubst src/%.cpp,obj/%.o, $(wildcard src/*.cpp) $(foreach d, $(DIRS),
 
 CXX = g++
 PLATFORM_LIBS = 
+CFLAGS = -std=c++11 -g -Os -Wall
 
 ifeq ($(MACHINE), Darwin)
 	CXX = clang++ -stdlib=libc++
@@ -15,10 +16,10 @@ LIBS = $(PLATFORM_LIBS)
 EXEC = graphics.out
 
 main: dirs $(OBJS)
-	$(CXX) -o $(EXEC) $(OBJS) $(LIBS)
+	$(CXX) $(CFLAGS) -o $(EXEC) $(OBJS) $(LIBS)
 
 obj/%.o: src/%.cpp
-	$(CXX) -Wall -c -o $@ $< $(INCLUDES)
+	$(CXX) $(CFLAGS) -c -o $@ $< $(INCLUDES)
 
 dirs:
 	@test -d obj || mkdir obj
