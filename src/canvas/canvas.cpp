@@ -26,6 +26,11 @@ void Canvas::_put_pixel(Vec2i point) {
   _put_pixel(point[0], point[1]);
 }
 
+void Canvas::putpixel(const Pixel pixel) {
+  _set_color(pixel.color());
+  _put_pixel(pixel.point());
+}
+
 void Canvas::putpixel(int x, int y, int r, int g, int b, int a) {
   _set_color(r,g,b,a);
   _put_pixel(x, y);

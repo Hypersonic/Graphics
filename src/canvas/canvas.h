@@ -4,6 +4,7 @@
 #include <math.h>
 #include <vector>
 #include "color.h"
+#include "pixel.h"
 #include "geometry/_shapes.h"
 
 class Canvas {
@@ -20,6 +21,7 @@ protected:
 public:
   Canvas(int width, int height);
   ~Canvas();
+  void putpixel(const Pixel pixel);
   void putpixel(int x, int y, int r, int g, int b, int a); // put a pixel at a point, make sure to call render to display
 
   void draw_point(const Vec2i point, const Color color);

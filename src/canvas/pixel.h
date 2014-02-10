@@ -11,11 +11,11 @@ public:
   Pixel() : _pt(Vec2i()), _col(Color()) {}
   Pixel(Vec2i pt, Color col) : _pt(pt), _col(col) {}
 
-  Vec2i  point() const { return &_pt; }
-  Vec2i& point()       { return &_pt; }
+  Vec2i  point() const { return _pt; }
+  Vec2i& point()       { return _pt; }
 
-  Color  color() const { return &_col; }
-  Color& color()       { return &_col; }
+  Color  color() const { return _col; }
+  Color& color()       { return _col; }
 
   Pixel operator + (Pixel& pixel) const { return Pixel(_pt + pixel._pt, _col + pixel._col); }
   Pixel operator - (Pixel& pixel) const { return Pixel(_pt - pixel._pt, _col - pixel._col); }
@@ -24,4 +24,4 @@ public:
   void operator -= (Pixel& pixel)       { _pt -= pixel._pt; _col -= pixel._col;          }
   bool operator == (Pixel& pixel)       { return _pt == pixel._pt && _col == pixel._col; }
   bool operator != (Pixel& pixel)       { return _pt != pixel._pt || _col != pixel._col; }
-}
+};
