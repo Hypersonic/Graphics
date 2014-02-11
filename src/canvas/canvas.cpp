@@ -58,6 +58,15 @@ void Canvas::draw_line(const Line line, const Color color) {
   }
 }
 
+void Canvas::draw_line(const Line line, const std::vector<Color> colors) {
+  std::vector<Vec2i> pts = line.points();
+  float step = (float) colors.size() / pts.size();
+  for (int i = 0; i < pts.size(); i++) {
+    _set_color(colors[i * step]);
+    _put_pixel(pts[i]);
+  }
+}
+
 void Canvas::draw_tri(const Tri tri, const Color color) {
   for (int i = 0; i < 3; i++) {
     draw_line(Line(tri[i], tri[(i+1)%3]), color);

@@ -30,6 +30,7 @@ public:
   void draw_point(const Vec2i point, const Color color);
 
   void draw_line(const Line line, const Color color); //Bresenham's line algo, AKA: no AA
+  void draw_line(const Line line, const std::vector<Color> color); //Bresenham's line algo, AKA: no AA
 
   void draw_tri(const Tri tri, const Color color); // Draw Triangle outline
 
