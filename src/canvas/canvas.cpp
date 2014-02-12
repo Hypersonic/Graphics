@@ -70,17 +70,20 @@ void Canvas::draw_line(const Line line, const Color color) {
 void Canvas::draw_line_AA(const Line line, const Color color) {
   _set_color(color);
   std::vector<Vec2i> pts = line.points();
-  Vec2i perp = (pts[0] - pts[pts.size()-1]).perp().norm(1.5);
+  Vec2i perp = (pts[0] - pts[pts.size()-1]).perp();
   for (int i = 0; i < pts.size(); i++) {
 
-    Color col2 = color;
-    for (int j = 0; j < 3; j++) {
-      col2[j] = (col2[j] >> 1) - 50;
-      col2[j] = col2[j] >= 0 ? col2[j] : 0;
+    for (int k = 1; k < 5; k++) {
+      Color col2 = color;
+      perp = perp.norm(k+.5f);
+      for (int j = 0; j < 3; j++) {
+        col2[j] = (col2[j] >> 1) - (pow(k,5));
+        col2[j] = col2[j] >= 0 ? col2[j] : 0;
+      }
+      _set_color(col2);
+      _put_pixel(pts[i] + perp);
+      _put_pixel(pts[i] - perp);
     }
-    _set_color(col2);
-    _put_pixel(pts[i] + perp);
-    _put_pixel(pts[i] - perp);
     _set_color(color);
     _put_pixel(pts[i]);
   }
