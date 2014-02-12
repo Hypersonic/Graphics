@@ -20,9 +20,7 @@ std::vector<Vec2i> Line::points() const {
   // Line is vertical, special case
   if (dx == 0) {
     if (dy < 0) { // swap so that dy is positive
-      Vec2i swap = p1;
-      p1 = p2;
-      p2 = swap;
+      std::swap(p1, p2);
     }
     for (int i = p1[1]; i < p2[1]; i++) {
       pts.push_back(Vec2i(p1[0], i));
