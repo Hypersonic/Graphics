@@ -6,6 +6,15 @@ Canvas::Canvas(int width, int height) : _width(width), _height(height) {
   SDL_CreateWindowAndRenderer(_width, _height, 0, &_window, &_rend);
 
   _img = (Pixel*) malloc(_width * _height * sizeof(Pixel));
+
+  // Fill the screen with black
+  _set_color(0, 0, 0, 255);
+  for (int i = 0; i < _width; i++) {
+    for (int j = 0; j < _height; j++) {
+        _put_pixel(i, j);
+    }
+  }
+
 }
 
 Canvas::~Canvas() {
@@ -155,9 +164,13 @@ void Canvas::render() {
 }
 
 void Canvas::clear() {
+  _set_color(0, 0, 0, 255);
+  Color black = Color(0, 0, 0);
   for (int i = 0; i < _width; i++) {
     for (int j = 0; j < _height; j++) {
-      putpixel(i, j, 0, 0, 0, 255); // Put black everywhere
+      if (_get_pixel(i, j).color() != black) { //Only change non-black pixels
+        _put_pixel(i, j);
+      }
     }
   }
 }
