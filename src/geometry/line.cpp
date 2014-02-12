@@ -33,11 +33,12 @@ std::vector<Vec2i> Line::points() const {
       err += derr;
       if (err < 0.5) {
         pts.push_back(Vec2i(x, y));
-      }
-      while (err >= 0.5) {
-        pts.push_back(Vec2i(x, y));
-        y += dir;
-        err--;
+      } else {
+        while (err >= 0.5) {
+          pts.push_back(Vec2i(x, y));
+          y += dir;
+          err--;
+        }
       }
     }
   }
