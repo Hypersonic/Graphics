@@ -5,7 +5,7 @@
 #include "canvas/canvas.h"
 #include "canvas/color.h"
 
-int main(int argc, char** argv) {
+int main() {
   debug("Super cool stuff about graphics!\n");
   Canvas can = Canvas(640, 480);
 

@@ -62,7 +62,7 @@ void Canvas::draw_point(const Vec2i point, const Color color) {
 void Canvas::draw_line(const Line line, const Color color) {
   _set_color(color);
   std::vector<Vec2i> pts = line.points();
-  for (int i = 0; i < pts.size(); i++) {
+  for (size_t i = 0; i < pts.size(); i++) {
     _put_pixel(pts[i]);
   }
 }
@@ -71,7 +71,7 @@ void Canvas::draw_line_AA(const Line line, const Color color) {
   _set_color(color);
   std::vector<Vec2i> pts = line.points();
   Vec2i perp = (pts[0] - pts[pts.size()-1]).perp();
-  for (int i = 0; i < pts.size(); i++) {
+  for (size_t i = 0; i < pts.size(); i++) {
 
     for (int k = 1; k < 5; k++) {
       Color col2 = color;
@@ -92,7 +92,7 @@ void Canvas::draw_line_AA(const Line line, const Color color) {
 void Canvas::draw_line(const Line line, const std::vector<Color> colors) {
   std::vector<Vec2i> pts = line.points();
   float step = (float) colors.size() / pts.size();
-  for (int i = 0; i < pts.size(); i++) {
+  for (size_t i = 0; i < pts.size(); i++) {
     _set_color(colors[i * step]);
     _put_pixel(pts[i]);
   }

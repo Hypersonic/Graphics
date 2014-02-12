@@ -5,7 +5,7 @@ OBJS = $(patsubst src/%.cpp,obj/%.o, $(wildcard src/*.cpp) $(foreach d, $(DIRS),
 
 CXX = g++
 PLATFORM_LIBS = 
-CFLAGS = -std=c++11 -g -Os -Wall
+CFLAGS = -std=c++11 -Ofast -g -Wall -Wextra
 
 ifeq ($(MACHINE), Darwin)
 	CXX = clang++ -stdlib=libc++
