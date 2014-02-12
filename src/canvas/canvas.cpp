@@ -173,6 +173,7 @@ void Canvas::clear() {
       }
     }
   }
+  SDL_RenderClear(_rend);
 }
 
 void Canvas::saveCurrImage() {
