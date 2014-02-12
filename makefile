@@ -9,7 +9,7 @@ CFLAGS = -std=c++11 -Ofast -g -Wall -Wextra
 
 ifeq ($(MACHINE), Darwin)
 	CXX = clang++ -stdlib=libc++
-	PLATFORM_LIBS = -framework Cocoa -framework OpenGL -framework SDL2
+	PLATFORM_LIBS = -framework Cocoa -framework OpenGL $(shell sdl2-config --libs)
 endif
 
 LIBS = $(PLATFORM_LIBS)
@@ -17,6 +17,9 @@ EXEC = graphics.out
 
 main: dirs $(OBJS)
 	$(CXX) $(CFLAGS) -o $(EXEC) $(OBJS) $(LIBS)
+
+analyze: dirs $(OBJS)
+	$(CXX) $(CFLAGS) --analyze -o $(EXEC) $(OBJS) $(LIBS)
 
 obj/%.o: src/%.cpp
 	$(CXX) $(CFLAGS) -c -o $@ $< $(INCLUDES)
