@@ -32,4 +32,6 @@ public:
 
   Vec2i perp () const { return Vec2i(-_y, _x); }
 
+  Vec2i norm (float newlen) const { return Vec2i((newlen*_x)/length(), (newlen*_y)/length()); }
+
 };

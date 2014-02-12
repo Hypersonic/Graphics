@@ -17,6 +17,9 @@ public:
   Color operator - (const Color& color) const { return Color(_r - color._r, _g - color._g, _b - color._b, _a - color._a); }
   Color operator - (      Color& color) const { return Color(_r - color._r, _g - color._g, _b - color._b, _a - color._a); }
 
+  Color operator - (const int i) const { return Color(_r - i, _g - i, _b - i); }
+  Color operator - (      int i)       { return Color(_r - i, _g - i, _b - i); }
+
   void operator += (Color& color)       { _r += color._r; _g += color._g; _b += color._b; _a += color._a;              }
   void operator -= (Color& color)       { _r -= color._r; _g -= color._g; _b -= color._b; _a -= color._a;              }
   bool operator == (Color& color) const { return _r == color._r && _b == color._b && _g == color._g && _a == color._a; }

@@ -26,7 +26,7 @@ int main(int argc, char** argv) {
 
 
   Vec2i p3 = Vec2i(10, 20);
-  Vec2i p4 = Vec2i(10, 30);
+  Vec2i p4 = Vec2i(20, 80);
   Line l2 = Line(p4, p3);
 
   Circle c = Circle(Vec2i(100, 100), 40);
@@ -42,7 +42,7 @@ int main(int argc, char** argv) {
   Square s = Square(Vec2i(300, 300), 40);
 
   can.draw_line(l, inter1.interpolate(inter2, 100));
-  can.draw_line(l2, col2);
+  can.draw_line_AA(l2, col2);
 
   can.draw_tri(t, col);
 
