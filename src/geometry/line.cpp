@@ -1,8 +1,7 @@
 #include "line.h"
 
 std::vector<Vec2i> Line::points() const {
-  int maxdist = (_p1[0] - _p2[0]) | (_p1[1] - _p2[1]); // This should probably be big enough to hold the points.
-  maxdist = maxdist > 0 ? maxdist : -1 * maxdist; // Make maxdist positive
+  int maxdist = abs((_p1[0] - _p2[0]) | (_p1[1] - _p2[1])); // This should probably be big enough to hold the points.
   std::vector<Vec2i> pts = std::vector<Vec2i>();
   pts.reserve(maxdist);
   Vec2i p1;
