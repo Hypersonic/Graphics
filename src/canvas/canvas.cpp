@@ -67,6 +67,7 @@ void Canvas::draw_line(const Line line, const Color color) {
   }
 }
 
+// TODO: Make this not shit.
 void Canvas::draw_line_AA(const Line line, const Color color) {
   _set_color(color);
   std::vector<Vec2i> pts = line.points();
