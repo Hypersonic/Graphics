@@ -90,7 +90,7 @@ void Canvas::draw_line_AA(const Line line, const Color color) {
 
 void Canvas::draw_line(const Line line, const std::vector<Color> colors) {
   std::vector<Vec2i> pts = line.points();
-  float step = static_cast<float>(colors.size() / pts.size());
+  float step = static_cast<float>(colors.size()) / pts.size();
   for (size_t i = 0; i < pts.size(); i++) {
     _set_color(colors[i * step]);
     _put_pixel(pts[i]);
@@ -143,7 +143,6 @@ void Canvas::draw_circle2(const Circle circle, \
   for (float theta = 0; theta < 2 * M_PI; theta += dtheta) {
     nx = x + cos(theta) * mvdist;
     ny = y + sin(theta) * mvdist;
-
     draw_line(Line(Vec2i(nx, ny), Vec2i(x, y)), color);
     x = nx;
     y = ny;
