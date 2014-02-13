@@ -5,7 +5,8 @@ OBJS = $(patsubst src/%.cpp,obj/%.o, $(wildcard src/*.cpp) $(foreach d, $(DIRS),
 
 CXX = g++
 PLATFORM_LIBS = 
-CFLAGS = -std=c++11 -Ofast -g -Wall -Wextra
+WARNINGS = -Wall -Wextra -Werror -Wfloat-equal -Winit-self -Wshadow -Wpointer-arith -Wcast-align -Wstrict-prototypes -Wwrite-strings -Wunreachable-code -Wold-style-definition -Wstrict-prototypes -Wmissing-prototypes --pedantic
+CFLAGS = -std=c++11 -O -g -march=native $(WARNINGS)
 
 ifeq ($(MACHINE), Darwin)
 	CXX = clang++ -stdlib=libc++
