@@ -16,7 +16,7 @@ int main() {
   Vec2i p1 = Vec2i(300, 10);
   Vec2i p2 = Vec2i(250, 300);
   Line l = Line(p1, p2);
-  
+
   Color col  = Color(255, 0, 0);
   Color col2 = Color(0, 255, 0);
   Color col3 = col + col2;
@@ -33,7 +33,7 @@ int main() {
   Circle c2 = Circle(Vec2i(200, 100), 40);
   Circle c3 = Circle(Vec2i(100, 200), 40);
 
-  Tri t = Tri(Vec2i(230, 250), Vec2i(200, 300), Vec2i(250, 340)); 
+  Tri t = Tri(Vec2i(230, 250), Vec2i(200, 300), Vec2i(250, 340));
 
   Quad q = Quad(Vec2i(50, 50), Vec2i(80, 70), Vec2i(23, 55), Vec2i(90, 120));
 
@@ -56,17 +56,13 @@ int main() {
 
   can.draw_rect(s, col3);
 
-  //for (int i = 0; i < 1000; i++) {
-    //Line l = Line(Vec2i(rand() % 640, rand() % 480), Vec2i(rand() % 640, rand() % 480));
-    //Color c = Color(rand() % 255, rand() % 255, rand() % 255);
-    //can.draw_line(l, c);
-  //}
-
   can.render();
-  
   end = std::chrono::steady_clock::now();
 
-  debug("%d ms\n", std::chrono::duration<int, std::milli>(std::chrono::duration_cast<std::chrono::duration<int, std::milli> >(end-start)).count());
+  debug("%d ms\n", std::chrono::duration<int, std::milli>(
+        std::chrono::duration_cast<
+        std::chrono::duration<int, std::milli>>
+        (end-start)).count());
 
   char buffer[256];
   fgets(buffer, sizeof(buffer), stdin);

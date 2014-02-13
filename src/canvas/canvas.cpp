@@ -5,7 +5,7 @@ Canvas::Canvas(int width, int height) : _width(width), _height(height) {
 
   SDL_CreateWindowAndRenderer(_width, _height, 0, &_window, &_rend);
 
-  _img = (Pixel*) malloc(_width * _height * sizeof(Pixel));
+  _img = reinterpret_cast<Pixel*>(malloc(_width * _height * sizeof(Pixel)));
 
   // Fill the screen with black
   _set_color(0, 0, 0, 255);
@@ -14,7 +14,6 @@ Canvas::Canvas(int width, int height) : _width(width), _height(height) {
         _put_pixel(i, j);
     }
   }
-
 }
 
 Canvas::~Canvas() {
@@ -51,7 +50,7 @@ void Canvas::putpixel(const Pixel pixel) {
 }
 
 void Canvas::putpixel(int x, int y, int r, int g, int b, int a) {
-  _set_color(r,g,b,a);
+  _set_color(r, g, b, a);
   _put_pixel(x, y);
 }
 
@@ -67,18 +66,17 @@ void Canvas::draw_line(const Line line, const Color color) {
   }
 }
 
-// TODO: Make this not shit.
+// TODO(Josh): Make this not shit.
 void Canvas::draw_line_AA(const Line line, const Color color) {
   _set_color(color);
   std::vector<Vec2i> pts = line.points();
   Vec2i perp = (pts[0] - pts[pts.size()-1]).perp();
   for (size_t i = 0; i < pts.size(); i++) {
-
     for (int k = 1; k < 5; k++) {
       Color col2 = color;
       perp = perp.norm(k+.5f);
       for (int j = 0; j < 3; j++) {
-        col2[j] = (col2[j] >> 1) - (pow(k,5));
+        col2[j] = (col2[j] >> 1) - (pow(k, 5));
         col2[j] = col2[j] >= 0 ? col2[j] : 0;
       }
       _set_color(col2);
@@ -92,7 +90,7 @@ void Canvas::draw_line_AA(const Line line, const Color color) {
 
 void Canvas::draw_line(const Line line, const std::vector<Color> colors) {
   std::vector<Vec2i> pts = line.points();
-  float step = (float) colors.size() / pts.size();
+  float step = static_cast<float>(colors.size() / pts.size());
   for (size_t i = 0; i < pts.size(); i++) {
     _set_color(colors[i * step]);
     _put_pixel(pts[i]);
@@ -123,7 +121,6 @@ void Canvas::draw_circle(const Circle circle, const Color color) {
     _put_pixel(-y + cx, -x + cy);
     _put_pixel(x + cx, -y + cy);
     _put_pixel(y + cx, -x + cy);
-    
     y++;
     if (radius_err < 0) {
       radius_err += 2 * y + 1;
@@ -134,7 +131,9 @@ void Canvas::draw_circle(const Circle circle, const Color color) {
   }
 }
 
-void Canvas::draw_circle2(const Circle circle, const Color color, float resolution) {
+void Canvas::draw_circle2(const Circle circle, \
+                          const Color color,   \
+                          float resolution) {
   float x = circle.center()[0];
   float y = circle.center()[1] - circle.radius();
   float nx, ny;
