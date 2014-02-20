@@ -11,10 +11,12 @@ void Quad::rotate(float theta) {
   int cx = 0;
   int cy = 0;
 
+  // Find the average of the vetices to determine the point to rotate around
   for (int i = 0; i < 4; i++) {
     cx += (*this)[i][0];
     cy += (*this)[i][1];
   }
+  // Divide by 4 using a bitshift to get the avg.
   cx = cx >> 2;
   cy = cy >> 2;
   for (int i = 0; i < 4; i++) {
