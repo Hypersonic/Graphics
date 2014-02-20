@@ -166,7 +166,7 @@ void Canvas::draw_circle3(const Circle circle, const Color color, float resoluti
 
 void Canvas::draw_quad(const Quad quad, const Color color) {
   for (int i = 0; i < 4; i++) {
-    draw_line(Line(quad[i], quad[(i+1)%4]), color);
+    draw_line(Line(quad[i+4], quad[(i+1)%4 + 4]), color);
   }
 }
 
