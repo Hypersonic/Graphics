@@ -34,12 +34,14 @@ void Canvas::_set_color(Color color) {
   _col = color;
 }
 
-void Canvas::_put_pixel(int x, int y) {
-  _put_pixel(Vec2i(x, y));
+void Canvas::_put_pixel(int x, int y, bool draw) {
+  _put_pixel(Vec2i(x, y), draw);
 }
 
-void Canvas::_put_pixel(Vec2i point) {
-  SDL_RenderDrawPoint(_rend, point[0], point[1]);
+void Canvas::_put_pixel(Vec2i point, bool draw) {
+  if (draw) {
+    SDL_RenderDrawPoint(_rend, point[0], point[1]);
+  }
   Pixel p = Pixel(point, _col);
   _img[point[1] * _width + point[0]] = p;
 }
@@ -190,7 +192,7 @@ void Canvas::clear() {
   for (int i = 0; i < _width; i++) {
     for (int j = 0; j < _height; j++) {
       if (_get_pixel(i, j).color() != black) { //Only change non-black pixels
-        _put_pixel(i, j);
+        _put_pixel(i, j, false);
       }
     }
   }

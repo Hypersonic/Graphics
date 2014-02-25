@@ -13,8 +13,8 @@ class Canvas {
 private:
   void _set_color(int r, int g, int b, int a);
   void _set_color(Color color);
-  void _put_pixel(int x, int y);
-  void _put_pixel(Vec2i point);
+  void _put_pixel(int x, int y, bool draw=true);
+  void _put_pixel(Vec2i point, bool draw=true);
   Pixel _get_pixel(int x, int y);
 protected:
   int _width, _height;
