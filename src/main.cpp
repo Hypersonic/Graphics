@@ -40,6 +40,7 @@ int main() {
 
   Square s = Square(Vec2i(300, 300), 40);
 
+
   bool running = true;
   while (running) {
     SDL_Event e;
@@ -58,6 +59,8 @@ int main() {
     can.draw_circle3(c3, col);
 
     can.draw_quad(q, col2);
+
+    l.rotate(.01);
 
     q.rotate(.01);
     r.rotate(.01);
