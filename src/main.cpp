@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <chrono>
+#include <string>
+#include <vector>
 #include "geometry/_shapes.h"
 #include "debug.h"
 #include "canvas/canvas.h"
@@ -12,38 +14,10 @@ int main() {
   std::chrono::steady_clock::time_point start, end;
   can.clear();
 
-  //Vec2i p1 = Vec2i(300, 10);
-  //Vec2i p2 = Vec2i(250, 300);
-  //Line l = Line(p1, p2);
-
-  //Color col  = Color(255, 0, 0);
-  //Color col2 = Color(0, 255, 0);
-  //Color col3 = col + col2;
-
-  //Color inter1 = Color(0, 255, 0);
-  //Color inter2 = Color(255, 0, 0);
-
-
-  //Vec2i p3 = Vec2i(10, 20);
-  //Vec2i p4 = Vec2i(20, 80);
-  //Line l2 = Line(p4, p3);
-
-  //Circle c = Circle(Vec2i(100, 100), 40);
-  //Circle c2 = Circle(Vec2i(200, 100), 40);
-  //Circle c3 = Circle(Vec2i(100, 200), 40);
-
-  //Tri t = Tri(Vec2i(230, 250), Vec2i(200, 300), Vec2i(250, 340));
-
-  //Quad q = Quad(Vec2i(50, 50), Vec2i(80, 70), Vec2i(23, 55), Vec2i(90, 120));
-
-  //Rect r = Rect(Vec2i(30, 40), Vec2i(120, 50));
-
-  //Square s = Square(Vec2i(300, 300), 40);
-
-
   bool running = true;
   int i = 0;
-  int base = 200;
+  int basex = 640/2;
+  int basey = 480/2;
   while (running) {
     SDL_Event e;
     if (SDL_PollEvent(&e)) 
@@ -51,32 +25,12 @@ int main() {
           running = false;
 
     start = std::chrono::steady_clock::now();
-    //can.draw_line(l, inter1);
-    //can.draw_line_AA(l2, col2);
 
-    //can.draw_tri(t, col);
-
-    //can.draw_circle(c, col);
-    //can.draw_circle2(c2, col);
-    //can.draw_circle3(c3, col);
-
-    //can.draw_quad(q, col2);
-
-    //l.rotate(.01);
-
-    //q.rotate(.01);
-    //r.rotate(.01);
-    //s.rotate(.01);
-
-    //can.draw_rect(r, col);
-
-    //can.draw_rect(s, col3);
-    
     i++;
     i%=255;
 
     for (int j = 0; j < i; j++) {
-      Square s = Square(Vec2i(base - j/2,base - j/2), j);
+      Square s = Square(Vec2i(basex - j/2,basey - j/2), j);
       s.rotate(j);
       int col = j % 255;
       can.draw_quad(s, Color(col, col, col));
@@ -86,11 +40,17 @@ int main() {
     can.render();
     can.clear();
     end = std::chrono::steady_clock::now();
+    int ms = std::chrono::duration<int, std::milli>(
+              std::chrono::duration_cast<
+              std::chrono::duration<int, std::milli>>
+              (end-start)).count();
+    debug("%d ms\n", ms);
 
-    debug("%d ms\n", std::chrono::duration<int, std::milli>(
-          std::chrono::duration_cast<
-          std::chrono::duration<int, std::milli>>
-          (end-start)).count());
+    char * title = reinterpret_cast<char*>(calloc(100, sizeof(char)));
+    sprintf(title, "%d squares, %.1f fps, %.3f ms/square", i, 1000.0/ms, (float)ms/i);
+    can.set_title(title);
+    free(title);
+
   }
 
   //char buffer[256];
