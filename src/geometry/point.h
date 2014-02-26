@@ -9,7 +9,7 @@ protected:
   int _x, _y;
 public:
   Vec2i() : _x(0), _y(0) {}
-  Vec2i(int val1, int val2) : _x(val1), _y(val2) {}
+  Vec2i(const int val1, const int val2) : _x(val1), _y(val2) {}
 
   Vec2i operator + (Vec2i &vec) const { return Vec2i(_x+vec._x, _y+vec._y); }
   Vec2i operator - (Vec2i &vec) const { return Vec2i(_x-vec._x, _y-vec._y); }

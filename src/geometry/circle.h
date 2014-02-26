@@ -8,7 +8,8 @@ protected:
   int _radius;
 public:
   Circle() : _center(Vec2i()), _radius(1) {}
-  Circle(Vec2i center, int radius) : _center(center), _radius(radius) {}
+  Circle(const Vec2i center, int radius) : _center(center), _radius(radius) {}
+  Circle(Vec2i& center, int radius) : _center(center), _radius(radius) {}
 
   int  radius () const { return _radius;  }
   int& radius ()       { return _radius; }

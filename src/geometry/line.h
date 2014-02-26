@@ -12,7 +12,8 @@ protected:
   float _rot;
 public:
   Line() : _p1(Vec2i()), _p2(Vec2i()), _rp1(_p1), _rp2(_p2), _rot(0) {}
-  Line(Vec2i p1, Vec2i p2) : _p1(p1), _p2(p2), _rp1(p1), _rp2(p2), _rot(0) {}
+  Line(const Vec2i p1, const Vec2i p2) : _p1(p1), _p2(p2), _rp1(p1), _rp2(p2), _rot(0) {}
+  Line(Vec2i& p1, Vec2i& p2) : _p1(p1), _p2(p2), _rp1(p1), _rp2(p2), _rot(0) {}
 
   Vec2i  operator [](int index) const { return (&_p1)[index]; }
   Vec2i& operator [](int index)       { return (&_p1)[index]; }

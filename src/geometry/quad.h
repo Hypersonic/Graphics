@@ -11,7 +11,10 @@ protected:
 public:
   Quad() : _tl(Vec2i()), _tr(Vec2i()), _br(Vec2i()), _bl(Vec2i()),
            _rtl(_tl),    _rtr(_tr),    _rbr(_br),    _rbl(_bl), _rot(0) {}
-  Quad(Vec2i topleft, Vec2i topright, Vec2i bottomleft, Vec2i bottomright) :
+  Quad(const Vec2i topleft, const Vec2i topright, const Vec2i bottomleft, const Vec2i bottomright) :
+            _tl(topleft), _tr(topright), _br(bottomright), _bl(bottomleft),
+            _rtl(_tl),    _rtr(_tr),     _rbr(_br),        _rbl(_bl), _rot(0) {}
+  Quad(Vec2i& topleft, Vec2i& topright, Vec2i& bottomleft, Vec2i& bottomright) :
             _tl(topleft), _tr(topright), _br(bottomright), _bl(bottomleft),
             _rtl(_tl),    _rtr(_tr),     _rbr(_br),        _rbl(_bl), _rot(0) {}
 
