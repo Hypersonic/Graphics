@@ -21,6 +21,10 @@ Canvas::~Canvas() {
   SDL_Quit();
 }
 
+void Canvas::set_title(const char* title) {
+  SDL_SetWindowTitle(_window, title);
+}
+
 Pixel Canvas::_get_pixel(int x, int y) {
   return _img[y * _width + x];
 }
@@ -39,11 +43,13 @@ void Canvas::_put_pixel(int x, int y, bool draw) {
 }
 
 void Canvas::_put_pixel(Vec2i point, bool draw) {
-  if (draw) {
-    SDL_RenderDrawPoint(_rend, point[0], point[1]);
-  }
   Pixel p = Pixel(point, _col);
-  _img[point[1] * _width + point[0]] = p;
+  if (_img[point[1] * _width + point[0]] != p) {
+    if (draw) {
+      SDL_RenderDrawPoint(_rend, point[0], point[1]);
+    }
+    _img[point[1] * _width + point[0]] = p;
+  }
 }
 
 void Canvas::putpixel(const Pixel pixel) {
