@@ -21,7 +21,7 @@ main: dirs $(OBJS)
 	$(CXX) $(CFLAGS) -o $(EXEC) $(OBJS) $(LIBS)
 
 analyze: dirs $(OBJS)
-	$(CXX) $(CFLAGS) --analyze -o $(EXEC) $(OBJS) $(LIBS)
+	$(CXX) $(CFLAGS) --analyze src/main.cpp $(INCLUDES)
 
 obj/%.o: src/%.cpp
 	$(CXX) $(CFLAGS) -c -o $@ $< $(INCLUDES)
