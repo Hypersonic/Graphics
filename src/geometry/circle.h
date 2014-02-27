@@ -2,6 +2,7 @@
 
 #include "point.h"
 
+namespace TwoDee {
 class Circle {
 protected:
   Vec2i _center;
@@ -17,3 +18,4 @@ public:
   Vec2i  center () const { return _center;  }
   Vec2i& center ()       { return _center; }
 };
+}

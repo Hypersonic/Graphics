@@ -31,19 +31,19 @@ public:
 
   void draw_point(const Vec2i point, const Color color);
 
-  void draw_line(const Line line, const Color color); //Bresenham's line algo, AKA: no AA
-  void draw_line(const Line line, const std::vector<Color> color); //Bresenham's line algo, AKA: no AA
-  void draw_line_AA(const Line line, const Color color); // crappy AntiAliasing on top of Bresenham.
+  void draw_line(const TwoDee::Line line, const Color color); //Bresenham's line algo, AKA: no AA
+  void draw_line(const TwoDee::Line line, const std::vector<Color> color); //Bresenham's line algo, AKA: no AA
+  void draw_line_AA(const TwoDee::Line line, const Color color); // crappy AntiAliasing on top of Bresenham.
 
-  void draw_tri(const Tri tri, const Color color); // Draw Triangle outline
+  void draw_tri(const TwoDee::Tri tri, const Color color); // Draw Triangle outline
 
-  void draw_circle(const Circle circle, const Color color); // Midpoint circle algo
-  void draw_circle2(const Circle circle, const Color color, float resolution=0.1f); // Circle algo based on drawing lines
-  void draw_circle3(const Circle circle, const Color color, float resolution=1.0f); // Circle algo based on tracing points
+  void draw_circle(const TwoDee::Circle circle, const Color color); // Midpoint circle algo
+  void draw_circle2(const TwoDee::Circle circle, const Color color, float resolution=0.1f); // Circle algo based on drawing lines
+  void draw_circle3(const TwoDee::Circle circle, const Color color, float resolution=1.0f); // Circle algo based on tracing points
   
-  void draw_quad(const Quad quad, const Color color); // Draw the outline of a quad
-  void draw_rect(const Rect rect, const Color color); // Draw the outline of a rect
-  void draw_square(const Square square, const Color color); // Draw the outline of a square
+  void draw_quad(const TwoDee::Quad quad, const Color color); // Draw the outline of a quad
+  void draw_rect(const TwoDee::Rect rect, const Color color); // Draw the outline of a rect
+  void draw_square(const TwoDee::Square square, const Color color); // Draw the outline of a square
 
   void render(); //render current pixels
   void clear(); // Fill with black

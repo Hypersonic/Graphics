@@ -1,5 +1,6 @@
 #pragma once
 
+namespace TwoDee {
 class Triangle {
 protected:
   Vec2i _v1, _v2, _v3;
@@ -12,3 +13,4 @@ public:
   Vec2i& operator[](int index)       { return (&_v1)[index]; }
 };
 typedef Triangle Tri;
+}

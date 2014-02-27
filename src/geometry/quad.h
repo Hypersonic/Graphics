@@ -3,6 +3,7 @@
 #include <math.h>
 #include "point.h"
 
+namespace TwoDee {
 class Quad {
 protected:
   Vec2i _tl, _tr, _br, _bl;
@@ -25,3 +26,4 @@ public:
   void rotate(float theta); // Rotate by theta radians
 
 };
+}

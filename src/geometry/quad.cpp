@@ -1,6 +1,6 @@
 #include "quad.h"
 
-void Quad::rotate(float theta) {
+void TwoDee::Quad::rotate(float theta) {
   _rot += theta;
   while (_rot > M_PI * 2) { // Shrink down _rot
     _rot -= M_PI * 2;

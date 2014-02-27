@@ -6,6 +6,7 @@
 #include "point.h"
 #include "debug.h"
 
+namespace TwoDee {
 class Line {
 protected:
   Vec2i _p1, _p2, _rp1, _rp2;
@@ -25,3 +26,4 @@ public:
                                 // Based on Bresenham's Algorithm
   void rotate(float theta); // Rotate about the midpoint by theta
 };
+}

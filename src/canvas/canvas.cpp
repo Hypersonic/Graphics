@@ -5,7 +5,7 @@ Canvas::Canvas(int width, int height) : _width(width), _height(height) {
 
   SDL_CreateWindowAndRenderer(_width, _height, 0, &_window, &_rend);
 
-  _img = reinterpret_cast<Pixel*>(malloc(_width * _height * sizeof(Pixel)));
+  _img = reinterpret_cast<Pixel*>(valloc(_width * _height * sizeof(Pixel)));
 
   // Fill the screen with black
   _set_color(0, 0, 0, 255);
@@ -66,7 +66,7 @@ void Canvas::draw_point(const Vec2i point, const Color color) {
   putpixel(point[0], point[1], color[0], color[1], color[2], color[3]);
 }
 
-void Canvas::draw_line(const Line line, const Color color) {
+void Canvas::draw_line(const TwoDee::Line line, const Color color) {
   _set_color(color);
   std::vector<Vec2i> pts = line.points();
   for (size_t i = 0; i < pts.size(); i++) {
@@ -75,7 +75,7 @@ void Canvas::draw_line(const Line line, const Color color) {
 }
 
 // TODO(Josh): Make this not shit.
-void Canvas::draw_line_AA(const Line line, const Color color) {
+void Canvas::draw_line_AA(const TwoDee::Line line, const Color color) {
   _set_color(color);
   std::vector<Vec2i> pts = line.points();
   Vec2i perp = (pts[0] - pts[pts.size()-1]).perp();
@@ -96,7 +96,7 @@ void Canvas::draw_line_AA(const Line line, const Color color) {
   }
 }
 
-void Canvas::draw_line(const Line line, const std::vector<Color> colors) {
+void Canvas::draw_line(const TwoDee::Line line, const std::vector<Color> colors) {
   std::vector<Vec2i> pts = line.points();
   float step = static_cast<float>(colors.size()) / pts.size();
   for (size_t i = 0; i < pts.size(); i++) {
@@ -105,13 +105,13 @@ void Canvas::draw_line(const Line line, const std::vector<Color> colors) {
   }
 }
 
-void Canvas::draw_tri(const Tri tri, const Color color) {
+void Canvas::draw_tri(const TwoDee::Tri tri, const Color color) {
   for (int i = 0; i < 3; i++) {
-    draw_line(Line(tri[i], tri[(i+1)%3]), color);
+    draw_line(TwoDee::Line(tri[i], tri[(i+1)%3]), color);
   }
 }
 
-void Canvas::draw_circle(const Circle circle, const Color color) {
+void Canvas::draw_circle(const TwoDee::Circle circle, const Color color) {
   int x = circle.radius(), y = 0;
   int radius_err = 1-x;
 
@@ -139,7 +139,7 @@ void Canvas::draw_circle(const Circle circle, const Color color) {
   }
 }
 
-void Canvas::draw_circle2(const Circle circle, \
+void Canvas::draw_circle2(const TwoDee::Circle circle, \
                           const Color color,   \
                           float resolution) {
   float x = circle.center()[0];
@@ -151,13 +151,13 @@ void Canvas::draw_circle2(const Circle circle, \
   for (float theta = 0; theta < 2 * M_PI; theta += dtheta) {
     nx = x + cos(theta) * mvdist;
     ny = y + sin(theta) * mvdist;
-    draw_line(Line(Vec2i(nx, ny), Vec2i(x, y)), color);
+    draw_line(TwoDee::Line(Vec2i(nx, ny), Vec2i(x, y)), color);
     x = nx;
     y = ny;
   }
 }
 
-void Canvas::draw_circle3(const Circle circle, const Color color, float resolution) {
+void Canvas::draw_circle3(const TwoDee::Circle circle, const Color color, float resolution) {
   float x = circle.center()[0];
   float y = circle.center()[1] - circle.radius();
   float dtheta = resolution / circle.radius();
@@ -172,18 +172,18 @@ void Canvas::draw_circle3(const Circle circle, const Color color, float resoluti
   }
 }
 
-void Canvas::draw_quad(const Quad quad, const Color color) {
+void Canvas::draw_quad(const TwoDee::Quad quad, const Color color) {
   for (int i = 0; i < 4; i++) {
-    draw_line(Line(quad[i+4], quad[(i+1)%4 + 4]), color);
+    draw_line(TwoDee::Line(quad[i+4], quad[(i+1)%4 + 4]), color);
   }
 }
 
-void Canvas::draw_rect(const Rect rect, const Color color) {
+void Canvas::draw_rect(const TwoDee::Rect rect, const Color color) {
   // Wrap the draw_quad function, though we can do optimizations to this later if need be.
   draw_quad(rect, color);
 }
 
-void Canvas::draw_square(const Square square, const Color color) {
+void Canvas::draw_square(const TwoDee::Square square, const Color color) {
   // Wrap the draw_rect function, though we can optimize later if needed
   draw_rect(square, color);
 }

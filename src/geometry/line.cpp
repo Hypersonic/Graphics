@@ -1,6 +1,6 @@
 #include "line.h"
 
-std::vector<Vec2i> Line::points() const {
+std::vector<Vec2i> TwoDee::Line::points() const {
   int maxdist = abs((_rp1[0] - _rp2[0]) | (_rp1[1] - _rp2[1])); // This should probably be big enough to hold the points.
   std::vector<Vec2i> pts = std::vector<Vec2i>();
   pts.reserve(maxdist);
@@ -45,7 +45,7 @@ std::vector<Vec2i> Line::points() const {
   return pts;
 }
 
-void Line::rotate(float theta) {
+void TwoDee::Line::rotate(float theta) {
   _rot += theta;
 
   while (_rot > M_PI * 2) { // Shrink down _rot

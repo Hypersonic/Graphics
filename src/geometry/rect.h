@@ -2,6 +2,7 @@
 
 #include "_shapes.h"
 
+namespace TwoDee {
 class Rect : public Quad {
 public:
   Rect(const Vec2i topleft, const Vec2i bottomright) :
@@ -11,3 +12,4 @@ public:
 
   int area() { return _tl.dist(_tr)*_tl.dist(_bl); }
 };
+}
