@@ -6,6 +6,7 @@
 #include "debug.h"
 #include "canvas/canvas.h"
 #include "canvas/color.h"
+#include "math/Mat.h"
 
 int main() {
   debug("Super cool stuff about graphics!\n");
@@ -18,6 +19,27 @@ int main() {
   int i = 0;
   int basex = 640/2;
   int basey = 480/2;
+  Mat m = Mat(4, 4);
+  for (int r = 0; r < 4; r++) {
+    for (int c = 0; c < 4; c++) {
+      if (r == c) {
+        m.get(r,c) = r + c;
+      } else {
+        m.get(r,c) = r*c;
+      }
+      printf("%4d ", m.get(r,c));
+    }
+    printf("\n");
+  }
+  printf("\n\n");
+  Mat p = m.multiply(m);
+  for (int r = 0; r < 4; r++) {
+    for (int c = 0; c < 4; c++) {
+      printf("%4d ", p.get(r,c));
+    }
+    printf("\n");
+  }
+  //exit(0);
   while (running) {
     SDL_Event e;
     while (SDL_PollEvent(&e)) 
@@ -29,6 +51,7 @@ int main() {
     i++;
     i%=255;
 
+    using namespace TwoDee;
     for (int j = 0; j < i; j++) {
       Square s = Square(Vec2i(basex - j/2,basey - j/2), j);
       s.rotate(j);

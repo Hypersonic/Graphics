@@ -1,6 +1,6 @@
 MACHINE = $(shell uname -s)
 INCLUDES = -Isrc/
-DIRS = geometry canvas
+DIRS = geometry canvas math
 OBJS = $(patsubst src/%.cpp,obj/%.o, $(wildcard src/*.cpp) $(foreach d, $(DIRS), $(wildcard src/$(d)/*.cpp)))
 
 CXX = g++
