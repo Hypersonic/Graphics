@@ -4,6 +4,7 @@
 #include <math.h>
 #include <vector>
 #include <stdio.h>
+#include "math/Mat.h"
 #include "color.h"
 #include "pixel.h"
 #include "geometry/_shapes.h"
@@ -30,6 +31,8 @@ public:
   void putpixel(int x, int y, int r, int g, int b, int a); // put a pixel at a point, make sure to call render to display
 
   void draw_point(const Vec2i point, const Color color);
+
+  void draw_matrix(Mat& mat, Color color);
 
   void draw_line(const TwoDee::Line line, const Color color); //Bresenham's line algo, AKA: no AA
   void draw_line(const TwoDee::Line line, const std::vector<Color> color); //Bresenham's line algo, AKA: no AA

@@ -43,7 +43,13 @@ void Canvas::_put_pixel(int x, int y, bool draw) {
 }
 
 void Canvas::_put_pixel(Vec2i point, bool draw) {
+  // Check if in bounds
+  // TODO: Don't do this. figure this out before generating the points on a line
+  if (point[0] < 0 || point[0] >= _width ||
+      point[1] < 0 || point[1] >= _height) return;
+
   Pixel p = Pixel(point, _col);
+
   if (_img[point[1] * _width + point[0]] != p) {
     if (draw) {
       SDL_RenderDrawPoint(_rend, point[0], point[1]);
@@ -64,6 +70,18 @@ void Canvas::putpixel(int x, int y, int r, int g, int b, int a) {
 
 void Canvas::draw_point(const Vec2i point, const Color color) {
   putpixel(point[0], point[1], color[0], color[1], color[2], color[3]);
+}
+
+void Canvas::draw_matrix(Mat& mat, Color color) {
+  _set_color(color);
+  for (int i = 0; i < mat.cols(); i += 2) { // Draw pairs, so increment by 2
+    std::vector<Vec2i> pts = TwoDee::Line(Vec2i(floorf(mat.get(0,i  )), floorf(mat.get(1,i  ))),
+                                          Vec2i(floorf(mat.get(0,i+1)), floorf(mat.get(1,i+1)))).points();
+
+    for (size_t j = 0; j < pts.size(); j++) {
+      _put_pixel(pts[j]);
+    }
+  }
 }
 
 void Canvas::draw_line(const TwoDee::Line line, const Color color) {
