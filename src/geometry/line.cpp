@@ -21,7 +21,7 @@ std::vector<Vec2i> TwoDee::Line::points() const {
     if (dy < 0) { // swap so that dy is positive
       std::swap(p1, p2);
     }
-    for (int i = p1[1]; i < p2[1]; i++) {
+    for (int i = p1[1]; i <= p2[1]; i++) {
       pts.push_back(Vec2i(p1[0], i));
     }
   } else {

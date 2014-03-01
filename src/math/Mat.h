@@ -1,27 +1,40 @@
 #pragma once
 
 #include <stdlib.h>
+#include <vector>
 
+#include "geometry/point.h"
 #include "debug.h"
 
 class Mat {
 protected:
-  int _rows, _cols;
-  int* _data;
+  int _cols;
+  std::vector<Vec4f> _data;
 public:
-  Mat(int rows, int cols) : _rows(rows), _cols(cols), _data(reinterpret_cast<int*>(malloc(rows*cols*sizeof(rows)))) {}
+  Mat() : _cols(0), _data(std::vector<Vec4f>()) {}
   
-  ~Mat() { free(_data); }
+  int cols() const { return _cols; }
 
-  int  get(int row, int col=0) const { return _data[col * _rows + row]; }
-  int& get(int row, int col=0)       { return _data[col * _rows + row]; }
+  float  get(int row, int col=0) const { return _data[col][row]; }
+  float& get(int row, int col=0)       { return _data[col][row]; }
 
-  Mat getRow(int row) const; // Return the requested row
-  Mat getCol(int col) const; // Return the requested col
+  Vec4f getRow(int row) const; // Return the requested row, assuming it has at most 4 els
+  Vec4f getCol(int col) const; // Return the requested col, assuming it has at most 4 els
 
-  void expand(int morerows, int morecols); // Expand the matrix, placing elements to match the existing one.
+  void addCol(Vec4f col) { _data.push_back(col); _cols++; }
 
-  int dot(const Mat m1, const Mat m2) const; // Calculate the dot product of two collum matrices of equal length
+  void clear() { _data.clear(); _cols = 0; }
+
+  float dot(const Vec4f v1, const Vec4f v2) const; // Calculate the dot product of two Vec4is
   
   Mat multiply(const Mat m2); // this * m2
+
+  void operator *=(Mat& other) { Mat res = (*this).multiply(other); _data = res._data; _cols = res._cols; }
+
+  static const Mat XRotMat(float theta);
+  static const Mat YRotMat(float theta);
+  static const Mat ZRotMat(float theta);
+  static const Mat TransMat(int x, int y, int z);
+  static const Mat ScaleMat(float x, float y, float z);
+
 };

@@ -33,5 +33,33 @@ public:
   Vec2i perp () const { return Vec2i(-_y, _x); }
 
   Vec2i norm (float newlen) const { return Vec2i((newlen*_x)/length(), (newlen*_y)/length()); }
+};
+
+class Vec4f {
+protected:
+  float _x, _y, _z, _r;
+public:
+  Vec4f(const float val1=0, const float val2=0, const float val3=0, const float val4=0) :
+                    _x(val1), _y(val2), _z(val3), _r(val4) {}
+
+  Vec4f operator + (Vec4f &vec) const { return Vec4f(_x+vec._x, _y+vec._y,
+                                                     _z+vec._z, _r+vec._r); }
+  Vec4f operator - (Vec4f &vec) const { return Vec4f(_x-vec._x, _y-vec._y,
+                                                     _z-vec._z, _r-vec._r); }
+  float operator * (Vec4f &vec) const { return _x*vec._x + _y*vec._y +
+                                               _z*vec._z + _r*vec._r;       }
+  Vec4f operator - ()           const { return Vec4f(-_x, -_y, -_z, -_r);   }
+
+  float  operator [](int index) const { return (&_x)[index]; }
+  float& operator [](int index)       { return (&_x)[index]; }
+
+  void operator += (Vec4f &vec)       { _x += vec._x; _y += vec._y;
+                                        _z += vec._z; _r += vec._r;          }
+  void operator -= (Vec4f &vec)       { _x -= vec._x; _y -= vec._y;
+                                        _z -= vec._z; _r -= vec._r;          }
+  //bool operator == (Vec4f &vec) const { return _x == vec._x && _y == vec._y &&
+                                               //_z == vec._z && _r == vec._r; }
+  //bool operator != (Vec4f &vec) const { return _x != vec._x || _y != vec._y ||
+                                               //_z != vec._z || _r != vec._r; }
 
 };
