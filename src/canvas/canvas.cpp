@@ -223,8 +223,13 @@ void Canvas::clear() {
   SDL_RenderClear(_rend);
 }
 
-void Canvas::saveCurrImage() {
-  FILE * file = fopen("img.ppm", "w");
+void Canvas::saveCurrImage(const char* filename) {
+  FILE * file = fopen(filename, "w");
+
+  if (file == NULL) {
+    debug("Error opening %s for image writing\n", filename);
+    return;
+  }
 
   // Write PPM header
   fputs("P3\n", file); // PPM File type
@@ -242,4 +247,6 @@ void Canvas::saveCurrImage() {
     }
     fputc('\n', file);
   }
+
+  fclose(file);
 }

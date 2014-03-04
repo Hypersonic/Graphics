@@ -64,16 +64,15 @@ void MDLParser::ParseCmd(const char* cmd, Canvas& can, Mat& points, Mat& transfo
     } else if (cmdchar == 'a') {
       points = transform.multiply(points);
     } else if (cmdchar == 'v') {
-      debug("drawing\n");
       can.clear();
       can.draw_matrix(points, Color(0, 255, 0));
       can.render();
-      sleep(1);
     } else if (cmdchar == 'g') {
+      std::string filename = "img.ppm";
       can.clear();
       can.draw_matrix(points, Color(0, 255, 0));
       can.render();
-      can.saveCurrImage();
+      can.saveCurrImage(filename.c_str());
     }
   }
 }

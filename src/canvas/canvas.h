@@ -51,5 +51,5 @@ public:
   void render(); //render current pixels
   void clear(); // Fill with black
 
-  void saveCurrImage(); // save the current rendered image. Very slow, yo
+  void saveCurrImage(const char* filename); // save the current rendered image. Very slow, yo
 };
