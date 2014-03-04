@@ -2,9 +2,8 @@
 
 Vec4f Mat::getRow(int row) const {
   Vec4f res_row = Vec4f();
-  int max = (_cols < 4) ? _cols : 4;
-  for (int i = 0; i < max; i++) {
-    res_row[i] = get(row, i);
+  for (int i = 0; i < 4; i++) {
+    res_row[i] = _data[i][row];
   }
   return res_row;
 }
@@ -19,21 +18,20 @@ float Mat::dot(const Vec4f v1, const Vec4f v2) const {
   for (int i = 0; i < 4; i++) {
     res += v1[i] * v2[i];
   }
-  debug("Res: %f\n", res);
   return res;
 }
 
 Mat Mat::multiply(const Mat m2) {
   Mat resultant = Mat(); // Make the resultant the correct size
-  resultant._data.reserve(_cols);
 
-  // For each intersection
-  for (int j = 0; j < _cols; j++) {
+  for (int i = 0; i < m2.cols(); i++) {
     resultant.addCol(Vec4f());
-    for (int i = 0; i < 4; i++) {
-      Vec4f first  = m2.getRow(i);
-      Vec4f second =    getCol(j);
-      resultant.get(i,j) = first * second;
+  }
+  for (int i = 0; i < m2.cols(); i++) {
+    for (int j = 0; j < 4; j++) {
+      Vec4f first  = m2.getCol(i);
+      Vec4f second =    getRow(j);
+      resultant.get(j,i) = dot(first, second);
     }
   }
   return resultant;
@@ -65,9 +63,9 @@ const Mat Mat::YRotMat(float theta) {
   float sin = sinf(theta);
   float cos = cosf(theta);
   Mat res = Mat();
-  res.addCol(Vec4f(cos ,  0, sin, 0));
+  res.addCol(Vec4f(cos ,  0,  sin, 0));
   res.addCol(Vec4f(0   ,  1,    0, 0));
-  res.addCol(Vec4f(-sin ,  0,  cos, 0));
+  res.addCol(Vec4f(-sin,  0,  cos, 0));
   res.addCol(Vec4f(0   ,  0,    0, 1));
   return res;
 }

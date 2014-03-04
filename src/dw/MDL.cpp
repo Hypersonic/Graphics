@@ -1,4 +1,5 @@
 #include "MDL.h"
+#include <unistd.h>
 
 void MDLParser::ParseCmd(const char* cmd, Canvas& can, Mat& points, Mat& transform) {
   std::ifstream file = std::ifstream(cmd);
@@ -16,7 +17,6 @@ void MDLParser::ParseCmd(const char* cmd, Canvas& can, Mat& points, Mat& transfo
 
       for (int i = 0; i < 3; i++) {
         file >> p2[i];
-        curr.erase(0, curr.find(' '));
       }
 
       // Put the points into our matrix
@@ -43,7 +43,28 @@ void MDLParser::ParseCmd(const char* cmd, Canvas& can, Mat& points, Mat& transfo
         file >> factors[i];
       }
       Mat translate = Mat::TransMat(factors[0], factors[1], factors[2]);
+      printf("\n\nTranslate:\n");
+      for (int j = 0; j < translate.cols(); j++) {
+        for (int i = 0; i < 4; i++) {
+          printf("%10.1f ", translate.get(j,i));
+        }
+        printf("\n");
+      }
+      printf("\n\nTransform pre:\n");
+      for (int j = 0; j < transform.cols(); j++) {
+        for (int i = 0; i < 4; i++) {
+          printf("%10.1f ", transform.get(j,i));
+        }
+        printf("\n");
+      }
       transform = transform.multiply(translate);
+      printf("\n\nTransform post:\n");
+      for (int j = 0; j < transform.cols(); j++) {
+        for (int i = 0; i < 4; i++) {
+          printf("%10.1f ", transform.get(j,i));
+        }
+        printf("\n");
+      }
     } else if (cmdchar == 'x') {
       float factor;
       file >> factor;
@@ -60,11 +81,27 @@ void MDLParser::ParseCmd(const char* cmd, Canvas& can, Mat& points, Mat& transfo
       Mat rot = Mat::ZRotMat(factor * 180 / M_PI);
       transform *= rot;
     } else if (cmdchar == 'a') {
-      points *= transform;
+      printf("\n\nPoints (before):\n");
+      for (int j = 0; j < points.cols(); j++) {
+        for (int i = 0; i < 4; i++) {
+          printf("%10.1f ", points.get(i,j));
+        }
+        printf("\n");
+      }
+      points = transform.multiply(points);
+      printf("\n\nPoints (after):\n");
+      for (int j = 0; j < points.cols(); j++) {
+        for (int i = 0; i < 4; i++) {
+          printf("%10.1f ", points.get(i,j));
+        }
+        printf("\n");
+      }
     } else if (cmdchar == 'v') {
+      debug("drawing\n");
       can.clear();
       can.draw_matrix(points, Color(0, 255, 0));
       can.render();
+      sleep(1);
     } else if (cmdchar == 'g') {
       can.clear();
       can.draw_matrix(points, Color(0, 255, 0));
