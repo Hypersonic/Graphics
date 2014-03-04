@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <chrono>
-#include <fstream>
 #include <string>
 #include <vector>
 #include "geometry/_shapes.h"
@@ -9,9 +8,15 @@
 #include "canvas/color.h"
 #include "math/Mat.h"
 #include "dw/MDL.h"
+#include "test.h"
+
+//#define UNIT_TESTS
 
 int main() {
   debug("Super cool stuff about graphics!\n");
+#ifdef UNIT_TESTS
+  Tests::RunAllTests();
+#else
   Canvas can = Canvas(640, 480);
 
   std::chrono::steady_clock::time_point start, end;
@@ -88,9 +93,5 @@ int main() {
     //free(title);
 
   }
-
-  //char buffer[256];
-  //fgets(buffer, sizeof(buffer), stdin);
-
-  //return 0;
+#endif
 }
