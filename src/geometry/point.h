@@ -38,6 +38,8 @@ public:
 class Vec4f {
 protected:
   float _x, _y, _z, _r;
+private:
+  constexpr static float epsilon = .01f; // For comparing vectors
 public:
   Vec4f(const float val1=0, const float val2=0, const float val3=0, const float val4=0) :
                     _x(val1), _y(val2), _z(val3), _r(val4) {}
@@ -57,9 +59,13 @@ public:
                                         _z += vec._z; _r += vec._r;          }
   void operator -= (Vec4f &vec)       { _x -= vec._x; _y -= vec._y;
                                         _z -= vec._z; _r -= vec._r;          }
-  //bool operator == (Vec4f &vec) const { return _x == vec._x && _y == vec._y &&
-                                               //_z == vec._z && _r == vec._r; }
-  //bool operator != (Vec4f &vec) const { return _x != vec._x || _y != vec._y ||
-                                               //_z != vec._z || _r != vec._r; }
+  bool operator == (Vec4f &vec) const { return fabs(_x - vec._x) < epsilon &&
+                                               fabs(_y - vec._y) < epsilon &&
+                                               fabs(_z - vec._z) < epsilon &&
+                                               fabs(_r - vec._r) < epsilon; }
 
+  bool operator != (Vec4f &vec) const { return fabs(_x - vec._x) >= epsilon ||
+                                               fabs(_y - vec._y) >= epsilon ||
+                                               fabs(_z - vec._z) >= epsilon ||
+                                               fabs(_r - vec._r) >= epsilon; }
 };
