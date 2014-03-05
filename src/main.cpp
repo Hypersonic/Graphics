@@ -10,7 +10,7 @@
 #include "dw/MDL.h"
 #include "test.h"
 
-//#define UNIT_TESTS
+#define UNIT_TESTS
 
 int main() {
   debug("Super cool stuff about graphics!\n");

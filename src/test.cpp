@@ -3,7 +3,7 @@
 using namespace Tests;
 
 void Vector::TwoDee::TestComparison() {
-  debug("--- Testing Comparisons ---\n");
+  printf(dbgfmt.c_str(), "Testing Comparisons");
   Vec2i first, second;
 
   // Test equality
@@ -28,7 +28,7 @@ void Vector::TwoDee::TestComparison() {
 }
 
 void Vector::TwoDee::TestAddition() {
-  debug("--- Testing Addition ---\n");
+  printf(dbgfmt.c_str(), "Testing Addition");
   Vec2i first, second, result, expected;
 
   first  = Vec2i(1, 1);
@@ -47,7 +47,7 @@ void Vector::TwoDee::TestAddition() {
 }
 
 void Vector::TwoDee::TestSubtraction() {
-  debug("--- Testing Subtraction ---\n");
+  printf(dbgfmt.c_str(), "Testing Subtraction");
   Vec2i first, second, result, expected;
 
   first  = Vec2i(1, 1);
@@ -67,7 +67,7 @@ void Vector::TwoDee::TestSubtraction() {
 }
 
 void Vector::TwoDee::TestNegation() {
-  debug("--- Testing Negation ---\n");
+  printf(dbgfmt.c_str(), "Testing Negation");
   Vec2i first, result, expected;
 
   first = Vec2i(10, 22);
@@ -80,7 +80,7 @@ void Vector::TwoDee::TestNegation() {
 }
 
 void Vector::TwoDee::TestMultiplication() {
-  debug("--- Testing Multiplication ---\n");
+  printf(dbgfmt.c_str(), "Testing Multiplication");
   int result, expected;
   Vec2i first, second;
 
@@ -95,6 +95,7 @@ void Vector::TwoDee::TestMultiplication() {
 }
 
 void Vector::TwoDee::TestLength() {
+  printf(dbgfmt.c_str(), "Testing Length");
   float actual, expected;
   Vec2i test;
   test = Vec2i(10, 10);
@@ -107,6 +108,7 @@ void Vector::TwoDee::TestLength() {
 }
 
 void Vector::TwoDee::TestDistance() {
+  printf(dbgfmt.c_str(), "Testing Distance");
   Vec2i first, second;
   float actual, expected;
 
@@ -121,20 +123,117 @@ void Vector::TwoDee::TestDistance() {
 
 }
 
+void Vector::ThreeDee::TestComparison() {
+  printf(dbgfmt.c_str(), "Testing Comparisons");
+  Vec4f first, second;
+
+  // Test Equality
+  first  = Vec4f(1, 2, 3, 4);
+  second = Vec4f(1, 2, 3, 4);
+
+  assert(first == second);
+
+  // Test first value inequality
+  first  = Vec4f(0, 2, 3, 4);
+  second = Vec4f(1, 2, 3, 4);
+
+  assert(first != second);
+  
+  // Test second value inequality
+  first  = Vec4f(1, 2, 3, 4);
+  second = Vec4f(1, 0, 3, 4);
+
+  assert(first != second);
+
+  // Test third value inequality
+  first  = Vec4f(1, 2, 3, 4);
+  second = Vec4f(1, 2, 0, 4);
+
+  assert(first != second);
+
+  // Test fourth value inequality
+  first  = Vec4f(1, 2, 3, 4);
+  second = Vec4f(1, 2, 3, 0);
+
+  assert(first != second);
+
+  // Test complete inequality
+  first  = Vec4f(1, 2, 3, 4);
+  second = Vec4f(2, 3, 4, 5);
+  
+  assert(first != second);
+}
+
+void Vector::ThreeDee::TestAddition() {
+  printf(dbgfmt.c_str(), "Testing Addition");
+  Vec4f first, second, actual, expected;
+
+  first  = Vec4f(1, 2, 3, 4);
+  second = Vec4f(3, 2, 1, 9);
+
+  expected = Vec4f(4, 4, 4, 13);
+
+  actual = first + second;
+
+  assert(expected == actual);
+}
+
+void Vector::ThreeDee::TestSubtraction() {
+  printf(dbgfmt.c_str(), "Testing Subtraction");
+  Vec4f first, second, actual, expected;
+
+  first  = Vec4f(1, 2, 3, 4);
+  second = Vec4f(3, 2, 1, 9);
+
+  expected = Vec4f(-2, 0, 2, -5);
+
+  actual = first - second;
+
+  assert(expected == actual);
+}
+
+void Vector::ThreeDee::TestNegation() {
+  printf(dbgfmt.c_str(), "Testing Negation");
+  Vec4f first, actual, expected;
+
+  first = Vec4f(10, 10, 10, 10);
+
+  expected = Vec4f(-10, -10, -10, -10);
+
+  actual = -first;
+
+  assert(actual == expected);
+}
+
+void Vector::ThreeDee::TestMultiplication() {
+  printf(dbgfmt.c_str(), "Testing Multiplication");
+  Vec4f first, second;
+  float actual, expected;
+
+  first  = Vec4f(1, 2, 3, 4);
+  second = Vec4f(2, 3, 4, 5);
+
+  expected = 40.0f;
+
+  actual = first * second;
+
+  assert(abs(expected - actual) < epsilon);
+}
+
 void Tests::RunAllTests() {
-  debug("--- Starting Tests ---\n");
+  printf(dbgfmt.c_str(), "Starting Tests");
   Vector::RunVectorTests();
-  debug("--- All Tests Passed ---\n");
+  printf(dbgfmt.c_str(), "All Tests Passed");
 }
 
 void Vector::RunVectorTests() {
-  debug("--- Vector Tests ---\n");
+  printf(dbgfmt.c_str(), "Vector Tests");
   TwoDee::RunTwoDeeTests();
   ThreeDee::RunThreeDeeTests();
 }
 
 void Vector::TwoDee::RunTwoDeeTests() {
-  debug("--- 2D Vector Tests ---\n");
+  printf(dbgfmt.c_str(), "2D Vector Tests");
   using namespace Tests::Vector::TwoDee;
   TestComparison();
   TestAddition();
@@ -146,13 +245,11 @@ void Vector::TwoDee::RunTwoDeeTests() {
 }
 
 void Vector::ThreeDee::RunThreeDeeTests() {
-  debug("--- 3D Vector Tests ---\n");
+  printf(dbgfmt.c_str(), "3D Vector Tests");
   using namespace Tests::Vector::ThreeDee;
-  //TestComparison();
-  //TestAddition();
-  //TestSubtraction();
-  //TestNegation();
-  //TestMultiplication();
-  //TestLength();
-  //TestDistance();
+  TestComparison();
+  TestAddition();
+  TestSubtraction();
+  TestNegation();
+  TestMultiplication();
 }

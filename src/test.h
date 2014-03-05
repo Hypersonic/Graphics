@@ -2,10 +2,12 @@
 
 #include <assert.h>
 #include <math.h>
+#include <string>
 #include "debug.h"
 #include "geometry/point.h"
 
 static const float epsilon = 0.01f; // Maximum floating point difference
+static const std::string dbgfmt = "--- %25s ---\n";
 
 namespace Tests {
   void RunAllTests();
@@ -29,10 +31,12 @@ namespace ThreeDee {
   void TestSubtraction();
   void TestNegation();
   void TestMultiplication();
-  void TestLength();
-  void TestDistance();
 }
 
 }
+
+namespace Matrix {
+}
+
 }
 
