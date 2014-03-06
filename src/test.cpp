@@ -350,6 +350,19 @@ void Matrix::TestMultiplication() {
   expected.clear();
 
   // Try multiplying mats of different size
+  /*
+   *  [ 1 2 3 4 ]       [ 4 5 6 ]
+   *  [ 2 3 4 5 ]       [ 3 4 5 ]
+   *  [ 3 4 5 6 ]   *   [ 2 3 4 ]
+   *  [ 4 5 6 7 ]       [ 1 2 3 ]
+   *
+   *  Should come out to..
+   *
+   *  [ 20 30 40 ]
+   *  [ 30 44 58 ]
+   *  [ 40 58 76 ]
+   *  [ 50 72 94 ]
+   */
 
   m1.addCol(Vec4f(1, 2, 3, 4));
   m1.addCol(Vec4f(2, 3, 4, 5));
