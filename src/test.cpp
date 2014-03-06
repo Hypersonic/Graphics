@@ -397,7 +397,28 @@ void MDL::TestLine() {
   assert(pts.getCol(0) == expected);
   expected = Vec4f(100,100,100,1);
   assert(pts.getCol(1) == expected);
+}
 
+void MDL::TestIdentity() {
+  printf(dbgfmt.c_str(), "Testing Identity Matrix");
+  Mat pts, trans, expected;
+  Canvas can = Canvas(640, 480, true);
+  std::string cmd = "i"; // Ask for trans to be set to an identity matrix
+  std::stringbuf buf;
+  std::istream stream (&buf); // Create an istream containing our buffer
+  buf.str(cmd);
+
+  // Fill trans with some junk
+  trans.addCol(Vec4f(1,2,3,4));
+  trans.addCol(Vec4f(1,2,3,4));
+  trans.addCol(Vec4f(1,2,3,4));
+  trans.addCol(Vec4f(1,2,3,4));
+
+  // Run our function
+  MDLParser::ParseCmd(stream, can, pts, trans);
+  expected = Mat::Identity();
+
+  assert(trans == expected);
 }
 
 void Tests::RunAllTests() {
@@ -449,4 +470,5 @@ void MDL::RunMDLTests() {
   printf(dbgfmt.c_str(), "MDL Tests");
   using namespace Tests::MDL;
   TestLine();
+  TestIdentity();
 }

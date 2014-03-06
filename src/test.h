@@ -53,6 +53,7 @@ namespace MDL {
   void RunMDLTests();
 
   void TestLine();
+  void TestIdentity();
 }
 
 }
