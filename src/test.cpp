@@ -382,10 +382,29 @@ void Matrix::TestMultiplication() {
   assert(actual == expected);
 }
 
+void MDL::TestLine() {
+  printf(dbgfmt.c_str(), "Line Test");
+  Mat pts, trans;
+  Canvas can = Canvas(640, 480, true);
+  std::string cmd = "l\n0 0 0 100 100 100"; // Create a line from (0,0,0) to (100,100,100)
+  std::stringbuf buf;
+  std::istream stream (&buf); // Create an istream containing our buffer
+  buf.str(cmd);
+
+  MDLParser::ParseCmd(stream, can, pts, trans);
+  Vec4f expected;
+  expected = Vec4f(0,0,0,1);
+  assert(pts.getCol(0) == expected);
+  expected = Vec4f(100,100,100,1);
+  assert(pts.getCol(1) == expected);
+
+}
+
 void Tests::RunAllTests() {
   printf(dbgfmt.c_str(), "Starting Tests");
   Vector::RunVectorTests();
   Matrix::RunMatrixTests();
+  MDL::RunMDLTests();
   printf(dbgfmt.c_str(), "All Tests Passed");
 }
 
@@ -424,4 +443,10 @@ void Matrix::RunMatrixTests() {
   TestClear();
   TestComparison();
   TestMultiplication();
+}
+
+void MDL::RunMDLTests() {
+  printf(dbgfmt.c_str(), "MDL Tests");
+  using namespace Tests::MDL;
+  TestLine();
 }

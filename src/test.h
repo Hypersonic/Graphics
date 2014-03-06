@@ -3,9 +3,13 @@
 #include <assert.h>
 #include <math.h>
 #include <string>
+#include <sstream>
+#include <istream>
 #include "debug.h"
+#include "canvas/canvas.h"
 #include "geometry/point.h"
 #include "math/Mat.h"
+#include "dw/MDL.h"
 
 static const float epsilon = 0.01f; // Maximum floating point difference
 static const std::string dbgfmt = "--- %25s ---\n";
@@ -43,6 +47,12 @@ namespace Matrix {
   void TestClear();
   void TestComparison();
   void TestMultiplication();
+}
+
+namespace MDL {
+  void RunMDLTests();
+
+  void TestLine();
 }
 
 }
