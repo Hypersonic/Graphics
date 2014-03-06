@@ -11,8 +11,7 @@
 #include "math/Mat.h"
 #include "debug.h"
 
-class MDLParser {
-public:
-  static void ParseCmd(const char* cmd, Canvas& can, Mat& points, Mat& transform); 
-  static void ParseCmd(std::ifstream file, Canvas& can, Mat& points, Mat& transform);
-};
+namespace MDLParser {
+  void ParseCmd(const char* cmd, Canvas& can, Mat& points, Mat& transform); 
+  void ParseCmd(std::istream& file, Canvas& can, Mat& points, Mat& transform);
+}
