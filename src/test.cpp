@@ -220,9 +220,159 @@ void Vector::ThreeDee::TestMultiplication() {
   assert(abs(expected - actual) < epsilon);
 }
 
+void Matrix::TestAccessors() {
+  Vec4f expected;
+  printf(dbgfmt.c_str(), "Testing Accessor Methods");
+  Mat m = Mat();
+
+  m.addCol(Vec4f(1 , 2 , 3 , 4 ));
+  m.addCol(Vec4f(5 , 6 , 7 , 8 ));
+  m.addCol(Vec4f(9 , 10, 11, 12));
+  m.addCol(Vec4f(13, 14, 15, 16));
+
+
+  // Test .get(row, col)
+  for (int i = 0; i < 4; i++) {
+    for (int j = 0; j < 4; j++) {
+      assert(fabs(m.get(i,j) - ((4*j) + i + 1)) < epsilon);
+    }
+  }
+
+  // Test .getRow(row)
+  Vec4f row = m.getRow(3);
+  expected = Vec4f(4, 8, 12, 16);
+  assert(row == expected);
+
+  // Test .getCol(col)
+  Vec4f col = m.getCol(1);
+  expected = Vec4f(5, 6, 7, 8);
+  assert(col == expected);
+}
+
+void Matrix::TestClear() {
+  Mat m;
+  printf(dbgfmt.c_str(), "Testing Clear");
+
+  m.addCol(Vec4f(1, 2, 3, 4));
+  assert(m.cols() > 0); // Make sure we start with something in the matrix
+
+  m.clear();
+
+  assert(m.cols() == 0); // Test that we are back to a blank matrix
+}
+
+void Matrix::TestComparison() {
+  Mat first, second;
+  printf(dbgfmt.c_str(), "Testing Comparison");
+
+  // Test identical, 1 collum matrices
+  first .addCol(Vec4f(1, 2, 3, 4));
+  second.addCol(Vec4f(1, 2, 3, 4));
+
+  assert(first == second);
+
+  // Wipe them
+  first.clear();
+  second.clear();
+
+  // Test identical, multi-collum matrices
+  first .addCol(Vec4f(1, 2, 3, 4));
+  first .addCol(Vec4f(3, 4, 5, 6));
+  second.addCol(Vec4f(1, 2, 3, 4));
+  second.addCol(Vec4f(3, 4, 5, 6));
+
+  assert(first == second);
+
+  // Wipe them
+  first.clear();
+  second.clear();
+
+  // Test different, single collum matrices
+  first .addCol(Vec4f(1, 2, 3, 4));
+  second.addCol(Vec4f(2, 3, 4, 5));
+
+  assert(first != second);
+
+  // Wipe them
+  first.clear();
+  second.clear();
+
+  // Test different, multi-collum matrices
+  first .addCol(Vec4f(1, 2, 3, 4));
+  first .addCol(Vec4f(4, 5, 6, 8));
+  second.addCol(Vec4f(3, 4, 5, 6));
+  second.addCol(Vec4f(4, 5, 6, 8)); // note that this is the same as the second col on the other matrix, in order to ensure that the matrices are being fully compared
+
+  assert(first != second);
+}
+
+void Matrix::TestMultiplication() {
+  Mat m1, m2, actual, expected;
+  printf(dbgfmt.c_str(), "Testing Multiplication");
+
+  // Test same sized matrices
+  /*
+   *  [ 1 2 3 4 ]       [ 4 5 6 7 ]
+   *  [ 2 3 4 5 ]       [ 3 4 5 6 ]
+   *  [ 3 4 5 6 ]   *   [ 2 3 4 5 ]
+   *  [ 4 5 6 7 ]       [ 1 2 3 4 ]
+   *
+   *  Should come out to..
+   *
+   *  [ 20 30 40 50  ]
+   *  [ 30 44 58 72  ]
+   *  [ 40 58 76 94  ]
+   *  [ 50 72 94 116 ]
+   */
+  m1.addCol(Vec4f(1, 2, 3, 4));
+  m1.addCol(Vec4f(2, 3, 4, 5));
+  m1.addCol(Vec4f(3, 4, 5, 6));
+  m1.addCol(Vec4f(4, 5, 6, 7));
+
+  m2.addCol(Vec4f(4, 3, 2, 1));
+  m2.addCol(Vec4f(5, 4, 3, 2));
+  m2.addCol(Vec4f(6, 5, 4, 3));
+  m2.addCol(Vec4f(7, 6, 5, 4));
+
+  expected.addCol(Vec4f(20, 30, 40, 50));
+  expected.addCol(Vec4f(30, 44, 58, 72));
+  expected.addCol(Vec4f(40, 58, 76, 94));
+  expected.addCol(Vec4f(50, 72, 94, 116));
+
+  actual = m1.multiply(m2);
+
+  assert(actual == expected);
+  
+  // Clear everything
+  m1.clear();
+  m2.clear();
+  actual.clear();
+  expected.clear();
+
+  // Try multiplying mats of different size
+
+  m1.addCol(Vec4f(1, 2, 3, 4));
+  m1.addCol(Vec4f(2, 3, 4, 5));
+  m1.addCol(Vec4f(3, 4, 5, 6));
+  m1.addCol(Vec4f(4, 5, 6, 7));
+
+  m2.addCol(Vec4f(4, 3, 2, 1));
+  m2.addCol(Vec4f(5, 4, 3, 2));
+  m2.addCol(Vec4f(6, 5, 4, 3));
+
+  expected.addCol(Vec4f(20, 30, 40, 50));
+  expected.addCol(Vec4f(30, 44, 58, 72));
+  expected.addCol(Vec4f(40, 58, 76, 94));
+
+  actual = m1.multiply(m2);
+
+  assert(actual == expected);
+}
+
 void Tests::RunAllTests() {
   printf(dbgfmt.c_str(), "Starting Tests");
   Vector::RunVectorTests();
+  Matrix::RunMatrixTests();
   printf(dbgfmt.c_str(), "All Tests Passed");
 }
 
@@ -251,5 +401,14 @@ void Vector::ThreeDee::RunThreeDeeTests() {
   TestAddition();
   TestSubtraction();
   TestNegation();
+  TestMultiplication();
+}
+
+void Matrix::RunMatrixTests() {
+  printf(dbgfmt.c_str(), "Matrix Tests");
+  using namespace Tests::Matrix;
+  TestAccessors();
+  TestClear();
+  TestComparison();
   TestMultiplication();
 }

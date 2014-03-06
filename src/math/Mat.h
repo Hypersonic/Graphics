@@ -31,6 +31,14 @@ public:
 
   void operator *=(Mat& other) { Mat res = (*this).multiply(other); _data = res._data; _cols = res._cols; }
 
+  bool operator ==(Mat& other) { for (int i = 0; i < _cols; i++) {
+                                      Vec4f first  =       getCol(i);
+                                      Vec4f second = other.getCol(i);
+                                      if (first != second) return false;
+                                 } return true; }
+
+  bool operator !=(Mat& other) { return !(*this == other); } // TODO: optimize this
+
   static const Mat XRotMat(float theta);
   static const Mat YRotMat(float theta);
   static const Mat ZRotMat(float theta);

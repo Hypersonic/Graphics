@@ -5,6 +5,7 @@
 #include <string>
 #include "debug.h"
 #include "geometry/point.h"
+#include "math/Mat.h"
 
 static const float epsilon = 0.01f; // Maximum floating point difference
 static const std::string dbgfmt = "--- %25s ---\n";
@@ -36,6 +37,12 @@ namespace ThreeDee {
 }
 
 namespace Matrix {
+  void RunMatrixTests();
+  
+  void TestAccessors();
+  void TestClear();
+  void TestComparison();
+  void TestMultiplication();
 }
 
 }
