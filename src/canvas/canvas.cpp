@@ -1,9 +1,11 @@
 #include "canvas.h"
 
-Canvas::Canvas(int width, int height) : _width(width), _height(height) {
-  SDL_Init(SDL_INIT_VIDEO);
+Canvas::Canvas(int width, int height, bool headless) : _width(width), _height(height), _headless(headless) {
+  if (!_headless) {
+    SDL_Init(SDL_INIT_VIDEO);
 
-  SDL_CreateWindowAndRenderer(_width, _height, 0, &_window, &_rend);
+    SDL_CreateWindowAndRenderer(_width, _height, 0, &_window, &_rend);
+  }
 
   _img = reinterpret_cast<Pixel*>(valloc(_width * _height * sizeof(Pixel)));
 
@@ -18,11 +20,15 @@ Canvas::Canvas(int width, int height) : _width(width), _height(height) {
 
 Canvas::~Canvas() {
   free(_img);
-  SDL_Quit();
+  if (!_headless) {
+    SDL_Quit();
+  }
 }
 
 void Canvas::set_title(const char* title) {
-  SDL_SetWindowTitle(_window, title);
+  if (!_headless) {
+    SDL_SetWindowTitle(_window, title);
+  }
 }
 
 Pixel Canvas::_get_pixel(int x, int y) {
@@ -34,7 +40,9 @@ void Canvas::_set_color(int r, int g, int b, int a) {
 }
 
 void Canvas::_set_color(Color color) {
-  SDL_SetRenderDrawColor(_rend, color[0], color[1], color[2], color[3]);
+  if (!_headless) {
+    SDL_SetRenderDrawColor(_rend, color[0], color[1], color[2], color[3]);
+  }
   _col = color;
 }
 
@@ -51,7 +59,7 @@ void Canvas::_put_pixel(Vec2i point, bool draw) {
   Pixel p = Pixel(point, _col);
 
   if (_img[point[1] * _width + point[0]] != p) {
-    if (draw) {
+    if (draw && !_headless) {
       SDL_RenderDrawPoint(_rend, point[0], point[1]);
     }
     _img[point[1] * _width + point[0]] = p;
@@ -207,7 +215,9 @@ void Canvas::draw_square(const TwoDee::Square square, const Color color) {
 }
 
 void Canvas::render() {
-  SDL_RenderPresent(_rend);
+  if (!_headless) {
+    SDL_RenderPresent(_rend);
+  }
 }
 
 void Canvas::clear() {
@@ -220,7 +230,9 @@ void Canvas::clear() {
       }
     }
   }
-  SDL_RenderClear(_rend);
+  if (!_headless) {
+    SDL_RenderClear(_rend);
+  }
 }
 
 void Canvas::saveCurrImage(const char* filename) {

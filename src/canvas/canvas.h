@@ -19,12 +19,13 @@ private:
   Pixel _get_pixel(int x, int y);
 protected:
   int _width, _height;
+  bool _headless;
   Pixel* _img;
   Color _col;
   SDL_Window* _window;
   SDL_Renderer* _rend;
 public:
-  Canvas(int width, int height);
+  Canvas(int width, int height, bool headless=false);
   ~Canvas();
   void set_title(const char* title);
   void putpixel(const Pixel pixel);
