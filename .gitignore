@@ -4,3 +4,5 @@ obj/
 *.sw*
 
 *.out
+
+*.ppm
