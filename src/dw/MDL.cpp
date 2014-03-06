@@ -1,8 +1,10 @@
 #include "MDL.h"
-#include <unistd.h>
 
 void MDLParser::ParseCmd(const char* cmd, Canvas& can, Mat& points, Mat& transform) {
-  std::ifstream file = std::ifstream(cmd);
+  ParseCmd(std::ifstream(cmd), can, points, transform);
+}
+
+void MDLParser::ParseCmd(std::ifstream file, Canvas& can, Mat& points, Mat& transform) {
   std::string curr;
 
   while (!file.eof()) {
