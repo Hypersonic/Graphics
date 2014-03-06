@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <iostream>
 #include <chrono>
 #include <string>
 #include <vector>
@@ -10,7 +11,7 @@
 #include "dw/MDL.h"
 #include "test.h"
 
-#define UNIT_TESTS
+//#define UNIT_TESTS
 
 int main() {
   debug("Super cool stuff about graphics!\n");
@@ -76,7 +77,11 @@ int main() {
     std::string filename = "source_c";
     MDLParser::ParseCmd(filename.c_str(),  can, m, trans);
     m.clear();
+    debug("Now, you can enter input (^D to exit)\n");
+    MDLParser::ParseCmd(std::cin, can, m, trans);
+    running = false;
     //running = false;
+    
 
     //can.render();
     //can.clear();
