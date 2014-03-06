@@ -39,6 +39,7 @@ public:
 
   bool operator !=(Mat& other) { return !(*this == other); } // TODO: optimize this
 
+  static const Mat Identity();
   static const Mat XRotMat(float theta);
   static const Mat YRotMat(float theta);
   static const Mat ZRotMat(float theta);

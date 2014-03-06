@@ -28,11 +28,7 @@ void MDLParser::ParseCmd(std::istream& file, Canvas& can, Mat& points, Mat& tran
       points.addCol(p1);
       points.addCol(p2);
     } else if (cmdchar == 'i') {
-      transform.clear();
-      transform.addCol(Vec4f(1, 0, 0, 0));
-      transform.addCol(Vec4f(0, 1, 0, 0));
-      transform.addCol(Vec4f(0, 0, 1, 0));
-      transform.addCol(Vec4f(0, 0, 0, 1));
+      transform = Mat::Identity();
     } else if (cmdchar == 's') {
       float factors[3];
       for (int i = 0; i < 3; i++) {

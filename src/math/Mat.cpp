@@ -37,6 +37,16 @@ Mat Mat::multiply(const Mat m2) {
   return resultant;
 }
 
+const Mat Mat::Identity() {
+  Mat res = Mat();
+  res.addCol(Vec4f(1, 0, 0, 0));
+  res.addCol(Vec4f(0, 1, 0, 0));
+  res.addCol(Vec4f(0, 0, 1, 0));
+  res.addCol(Vec4f(0, 0, 0, 1));
+
+  return res;
+}
+
 const Mat Mat::ZRotMat(float theta) {
   float sin = sinf(theta);
   float cos = cosf(theta);
