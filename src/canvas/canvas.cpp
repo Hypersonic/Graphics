@@ -1,6 +1,6 @@
 #include "canvas.h"
 
-Canvas::Canvas(int width, int height, bool headless) : _width(width), _height(height), _headless(headless) {
+Canvas::Canvas(const int width, const int height, const bool headless) : _width(width), _height(height), _headless(headless) {
   if (!_headless) {
     SDL_Init(SDL_INIT_VIDEO);
 
@@ -31,26 +31,26 @@ void Canvas::set_title(const char* title) {
   }
 }
 
-Pixel Canvas::_get_pixel(int x, int y) {
+Pixel Canvas::_get_pixel(const int x, const int y) const {
   return _img[y * _width + x];
 }
 
-void Canvas::_set_color(int r, int g, int b, int a) {
+void Canvas::_set_color(const int r, const int g, const int b, const int a) {
   _set_color(Color(r, g, b, a));
 }
 
-void Canvas::_set_color(Color color) {
+void Canvas::_set_color(const Color color) {
   if (!_headless) {
     SDL_SetRenderDrawColor(_rend, color[0], color[1], color[2], color[3]);
   }
   _col = color;
 }
 
-void Canvas::_put_pixel(int x, int y, bool draw) {
+void Canvas::_put_pixel(const int x, const int y, const bool draw) {
   _put_pixel(Vec2i(x, y), draw);
 }
 
-void Canvas::_put_pixel(Vec2i point, bool draw) {
+void Canvas::_put_pixel(const Vec2i point, const bool draw) {
   // Check if in bounds
   // TODO: Don't do this. figure this out before generating the points on a line
   if (point[0] < 0 || point[0] >= _width ||
@@ -71,7 +71,9 @@ void Canvas::putpixel(const Pixel pixel) {
   _put_pixel(pixel.point());
 }
 
-void Canvas::putpixel(int x, int y, int r, int g, int b, int a) {
+void Canvas::putpixel(const int x, const int y,
+                      const int r, const int g, const int b,
+                      const int a) {
   _set_color(r, g, b, a);
   _put_pixel(x, y);
 }
@@ -80,7 +82,7 @@ void Canvas::draw_point(const Vec2i point, const Color color) {
   putpixel(point[0], point[1], color[0], color[1], color[2], color[3]);
 }
 
-void Canvas::draw_matrix(Mat& mat, Color color) {
+void Canvas::draw_matrix(const Mat& mat, const Color color) {
   _set_color(color);
   for (int i = 0; i < mat.cols(); i += 2) { // Draw pairs, so increment by 2
     std::vector<Vec2i> pts = TwoDee::Line(Vec2i(floorf(mat.get(0,i  )), floorf(mat.get(1,i  ))),
@@ -214,7 +216,7 @@ void Canvas::draw_square(const TwoDee::Square square, const Color color) {
   draw_rect(square, color);
 }
 
-void Canvas::render() {
+void Canvas::render() const {
   if (!_headless) {
     SDL_RenderPresent(_rend);
   }
@@ -235,7 +237,7 @@ void Canvas::clear() {
   }
 }
 
-void Canvas::saveCurrImage(const char* filename) {
+void Canvas::saveCurrImage(const char* filename) const {
   FILE * file = fopen(filename, "w");
 
   if (file == NULL) {
