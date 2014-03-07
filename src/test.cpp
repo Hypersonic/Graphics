@@ -421,6 +421,91 @@ void MDL::TestIdentity() {
   assert(trans == expected);
 }
 
+void MDL::TestScale() {
+  printf(dbgfmt.c_str(), "Testing Scaling");
+  Mat pts, trans, expected;
+  Canvas can = Canvas(640, 480, true);
+  std::string cmd = "s\n1 2 3"; // Ask for trans to be set to an identity matrix
+  std::stringbuf buf;
+  std::istream stream (&buf); // Create an istream containing our buffer
+  buf.str(cmd);
+
+  trans = Mat::Identity(); // Initialize our transform to the identity matrix
+
+  MDLParser::ParseCmd(stream, can, pts, trans);
+  expected = Mat::ScaleMat(1, 2, 3);
+  
+  assert(trans == expected);
+}
+
+void MDL::TestTranslation() {
+  printf(dbgfmt.c_str(), "Testing Translation");
+  Mat pts, trans, expected;
+  Canvas can = Canvas(640, 480, true);
+  std::string cmd = "t\n100 20 3"; // Ask for trans to be set to an identity matrix
+  std::stringbuf buf;
+  std::istream stream (&buf); // Create an istream containing our buffer
+  buf.str(cmd);
+
+  trans = Mat::Identity(); // Initialize our transform to the identity matrix
+
+  MDLParser::ParseCmd(stream, can, pts, trans);
+  expected = Mat::TransMat(100, 20, 3);
+  
+  assert(trans == expected);
+}
+
+void MDL::TestXRotation() {
+  printf(dbgfmt.c_str(), "Testing X Rotation");
+  Mat pts, trans, expected;
+  Canvas can = Canvas(640, 480, true);
+  std::string cmd = "x\n10"; // Ask for trans to be set to an identity matrix
+  std::stringbuf buf;
+  std::istream stream (&buf); // Create an istream containing our buffer
+  buf.str(cmd);
+
+  trans = Mat::Identity(); // Initialize our transform to the identity matrix
+
+  MDLParser::ParseCmd(stream, can, pts, trans);
+  expected = Mat::XRotMat((10 * 180) / M_PI);
+  
+  assert(trans == expected);
+}
+
+void MDL::TestYRotation() {
+  printf(dbgfmt.c_str(), "Testing Y Rotation");
+  Mat pts, trans, expected;
+  Canvas can = Canvas(640, 480, true);
+  std::string cmd = "y\n10"; // Ask for trans to be set to an identity matrix
+  std::stringbuf buf;
+  std::istream stream (&buf); // Create an istream containing our buffer
+  buf.str(cmd);
+
+  trans = Mat::Identity(); // Initialize our transform to the identity matrix
+
+  MDLParser::ParseCmd(stream, can, pts, trans);
+  expected = Mat::YRotMat((10 * 180) / M_PI);
+  
+  assert(trans == expected);
+}
+
+void MDL::TestZRotation() {
+  printf(dbgfmt.c_str(), "Testing Z Rotation");
+  Mat pts, trans, expected;
+  Canvas can = Canvas(640, 480, true);
+  std::string cmd = "z\n10"; // Ask for trans to be set to an identity matrix
+  std::stringbuf buf;
+  std::istream stream (&buf); // Create an istream containing our buffer
+  buf.str(cmd);
+
+  trans = Mat::Identity(); // Initialize our transform to the identity matrix
+
+  MDLParser::ParseCmd(stream, can, pts, trans);
+  expected = Mat::ZRotMat((10 * 180) / M_PI);
+  
+  assert(trans == expected);
+}
+
 void Tests::RunAllTests() {
   printf(dbgfmt.c_str(), "Starting Tests");
   Vector::RunVectorTests();
@@ -471,4 +556,9 @@ void MDL::RunMDLTests() {
   using namespace Tests::MDL;
   TestLine();
   TestIdentity();
+  TestScale();
+  TestTranslation();
+  TestXRotation();
+  TestYRotation();
+  TestZRotation();
 }

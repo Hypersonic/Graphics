@@ -54,6 +54,12 @@ namespace MDL {
 
   void TestLine();
   void TestIdentity();
+  void TestScale();
+  void TestTranslation();
+  void TestXRotation();
+  void TestYRotation();
+  void TestZRotation();
+  
 }
 
 }
