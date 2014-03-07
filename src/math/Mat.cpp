@@ -1,15 +1,11 @@
 #include "Mat.h"
 
-Vec4f Mat::getRow(int row) const {
+Vec4f Mat::getRow(const int row) const {
   Vec4f res_row = Vec4f();
   for (int i = 0; i < 4; i++) {
     res_row[i] = _data[i][row];
   }
   return res_row;
-}
-
-Vec4f Mat::getCol(int col) const {
-  return _data[col];
 }
 
 // prereqs: m1._rows == m2._rows && m1._cols == m2._cols
@@ -21,7 +17,7 @@ float Mat::dot(const Vec4f v1, const Vec4f v2) const {
   return res;
 }
 
-Mat Mat::multiply(const Mat m2) {
+Mat Mat::multiply(const Mat m2) const {
   Mat resultant = Mat(); // Make the resultant the correct size
 
   for (int i = 0; i < m2.cols(); i++) {
