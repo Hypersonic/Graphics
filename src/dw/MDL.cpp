@@ -37,7 +37,6 @@ void MDLParser::ParseCmd(std::istream& file, Canvas& can, Mat& points, Mat& tran
       Mat scale = Mat::ScaleMat(factors[0], factors[1], factors[2]);
 
       transform *= scale;
-      printf("\n");
     } else if (cmdchar == 't') {
       float factors[3];
       for (int i = 0; i < 3; i++) {
