@@ -22,11 +22,11 @@ public:
   Vec4f  getCol(const int col) const { return _data[col]; }
   Vec4f& getCol(const int col)       { return _data[col]; }
 
-  void addCol(Vec4f col) { _data.push_back(col); _cols++; }
+  void addCol(const Vec4f& col) { _data.push_back(std::move(col)); _cols++; }
 
   void clear() { _data.clear(); _cols = 0; }
 
-  float dot(const Vec4f v1, const Vec4f v2) const; // Calculate the dot product of two Vec4is
+  float dot(const Vec4f& v1, const Vec4f& v2) const; // Calculate the dot product of two Vec4is
   
   Mat multiply(const Mat m2) const; // this * m2
 

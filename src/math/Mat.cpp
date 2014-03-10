@@ -9,7 +9,7 @@ Vec4f Mat::getRow(const int row) const {
 }
 
 // prereqs: m1._rows == m2._rows && m1._cols == m2._cols
-float Mat::dot(const Vec4f v1, const Vec4f v2) const {
+float Mat::dot(const Vec4f& v1, const Vec4f& v2) const {
   float res = 0;
   for (int i = 0; i < 4; i++) {
     res += v1[i] * v2[i];
