@@ -11,8 +11,6 @@
 #include "dw/MDL.h"
 #include "test.h"
 
-//#define UNIT_TESTS
-
 int main() {
   debug("Super cool stuff about graphics!\n");
 #ifdef UNIT_TESTS
