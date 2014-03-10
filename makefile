@@ -46,7 +46,7 @@ dirs:
 	done
 
 clean:
-	rm -f $(EXEC) $(OBJS)
+	rm -f $(EXEC) $(OBJS) $(EXEC_TEST) $(TESTS)
 
 run: main
 	$(EXEC)
