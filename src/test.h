@@ -5,7 +5,6 @@
 #include <string>
 #include <sstream>
 #include <istream>
-#include "debug.h"
 #include "canvas/canvas.h"
 #include "geometry/point.h"
 #include "math/Mat.h"

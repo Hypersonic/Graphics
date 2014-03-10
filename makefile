@@ -2,6 +2,7 @@ MACHINE = $(shell uname -s)
 INCLUDES = -Isrc/
 DIRS = geometry canvas math dw
 OBJS = $(patsubst src/%.cpp,obj/%.o, $(wildcard src/*.cpp) $(foreach d, $(DIRS), $(wildcard src/$(d)/*.cpp)))
+TESTS = $(patsubst src/%.cpp,test_objs/%.o, $(wildcard src/*.cpp) $(foreach d, $(DIRS), $(wildcard src/$(d)/*.cpp)))
 
 CXX = g++
 PLATFORM_LIBS = 
@@ -16,9 +17,14 @@ endif
 
 LIBS = $(PLATFORM_LIBS)
 EXEC = graphics.out
+TEST_EXEC = graphics_test.out
 
 main: dirs $(OBJS)
 	$(CXX) $(CFLAGS) -o $(EXEC) $(OBJS) $(LIBS)
+
+test: dirs $(TESTS)
+	$(CXX) $(CFLAGS) -o $(TEST_EXEC) $(TESTS) $(LIBS)
+	$(TEST_EXEC)
 
 analyze: dirs $(OBJS)
 	$(CXX) $(CFLAGS) --analyze src/main.cpp $(INCLUDES)
@@ -26,10 +32,17 @@ analyze: dirs $(OBJS)
 obj/%.o: src/%.cpp
 	$(CXX) $(CFLAGS) -c -o $@ $< $(INCLUDES)
 
+test_objs/%.o: src/%.cpp
+	$(CXX) $(CFLAGS) -DUNIT_TESTS -c -o $@ $< $(INCLUDES)
+
 dirs:
 	@test -d obj || mkdir obj
 	@for DIRECTORY in $(DIRS) ; do \
 		test -d obj/$$DIRECTORY || mkdir obj/$$DIRECTORY; \
+	done
+	@test -d test_objs || mkdir test_objs
+	@for DIRECTORY in $(DIRS) ; do \
+		test -d test_objs/$$DIRECTORY || mkdir test_objs/$$DIRECTORY; \
 	done
 
 clean:
