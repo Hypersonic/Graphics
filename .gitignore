@@ -1,5 +1,6 @@
 *.o
 obj/
+test_objs/
 
 *.sw*
 
