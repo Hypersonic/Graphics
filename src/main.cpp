@@ -24,10 +24,6 @@ int main() {
   can.clear();
 
   bool running = true;
-  //int i = 0;
-  //int basex = 640/2;
-  //int basey = 480/2;
-  //std::vector<Mat> matrices = std::vector<Mat>();
   Mat m = Mat();
   Mat trans = Mat();
   while (running) {
@@ -38,53 +34,14 @@ int main() {
 
     start = std::chrono::steady_clock::now();
 
-    //i++;
-    //i%=255;
-    //if (i == 0) matrices.clear();
-
-    //m.addCol(Vec4f(-1, -1, 0, 1));
-    //m.addCol(Vec4f(-1, 1, 0, 1));
-
-    //m.addCol(Vec4f(-1, 1, 0, 1));
-    //m.addCol(Vec4f(1, 1, 0, 1));
-
-    //m.addCol(Vec4f(1, 1, 0, 1));
-    //m.addCol(Vec4f(1, -1, 0, 1));
-
-    //m.addCol(Vec4f(1, -1, 0, 1));
-    //m.addCol(Vec4f(-1, -1, 0, 1));
-
-    //float theta = (float) i / 64;
-    //Mat rotX = Mat::XRotMat(theta);
-    //Mat rotY = Mat::YRotMat(theta);
-    //Mat rotZ = Mat::ZRotMat(theta);
-    //Mat trans = Mat::TransMat(basex, basey, 0);
-    //Mat scal = Mat::ScaleMat(i, i, i);
-
-    //m = m.multiply(scal);
-    //m = m.multiply(rotX);
-    //m = m.multiply(rotY);
-    //m = m.multiply(rotZ);
-    //m = m.multiply(trans);
-
-    //matrices.push_back(m);
-
-    //for (size_t j = 0; j < matrices.size(); j++) {
-      //can.draw_matrix(matrices[j], Color(j, j, j));
-    //}
-    //debug("%d squares\n", i);
-
     std::string filename = "source_c";
     MDLParser::ParseCmd(filename.c_str(),  can, m, trans);
     m.clear();
     debug("Now, you can enter input (^D to exit)\n");
     MDLParser::ParseCmd(std::cin, can, m, trans);
     running = false;
-    //running = false;
-    
 
-    //can.render();
-    //can.clear();
+
     end = std::chrono::steady_clock::now();
     int ms = std::chrono::duration<int, std::milli>(
               std::chrono::duration_cast<
