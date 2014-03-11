@@ -14,6 +14,7 @@ public:
   Mat() : _cols(0), _data(std::vector<Vec4f>()) {}
   
   int cols() const { return _cols; }
+  void reserve(int cols) { _data.reserve(cols); }
 
   float  get(int row, int col=0) const { return _data[col][row]; }
   float& get(int row, int col=0)       { return _data[col][row]; }
