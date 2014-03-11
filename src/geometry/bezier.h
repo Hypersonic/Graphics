@@ -1,0 +1,23 @@
+#pragma once
+
+#include <vector>
+#include "curve.h"
+#include "point.h"
+
+class BezierCurve : public Curve {
+protected:
+  std::vector<Vec4f> _pts;
+public:
+  BezierCurve() : _pts(std::vector<Vec4f>()) {}
+  BezierCurve(std::vector<Vec4f>& pts) : _pts(pts) {}
+
+  Vec4f  operator[](const int index) const { return _pts[index]; }
+  Vec4f& operator[](const int index)       { return _pts[index]; }
+
+  void add_point(const Vec4f& pt) { _pts.push_back(pt); }
+
+  Mat edges();
+
+  static Vec4f bezier(float t, std::vector<Vec4f>::iterator lower, std::vector<Vec4f>::iterator upper);
+
+};
