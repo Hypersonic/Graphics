@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include "settings.h"
 #include "curve.h"
 #include "point.h"
 

@@ -2,10 +2,12 @@
 
 Mat BezierCurve::edges() {
   Mat res;
-  float step = 0.0001f;
+  float step = 1.0f / Settings::resolution;
   for (float t = 0; t < 1; t += step) {
     Vec4f pt1 = BezierCurve::bezier(t       , _pts.begin(), _pts.end()-1);
+    Vec4f pt2 = BezierCurve::bezier(t + step, _pts.begin(), _pts.end()-1);
     res.addCol(pt1);
+    res.addCol(pt2);
   }
   
   return res;
