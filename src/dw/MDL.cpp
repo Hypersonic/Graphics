@@ -27,6 +27,26 @@ void MDLParser::ParseCmd(std::istream& file, Canvas& can, Mat& points, Mat& tran
       // Put the points into our matrix
       points.addCol(p1);
       points.addCol(p2);
+    } else if (cmdchar == 'c') { 
+      //TODO: add circle to edge matrix
+    } else if (cmdchar == 'h') {
+      //TODO: add hermite curve to edge matrix
+    } else if (cmdchar == 'b') {
+      BezierCurve curve;
+      Vec4f pt = Vec4f();
+      pt[3] = 1;
+      for (int i = 0; i < 4; i++) {
+        for (int j = 0; j < 2; j++) {
+          file >> pt[j];
+        }
+        curve.add_point(pt);
+      }
+      Mat edges = curve.edges();
+      points.reserve(points.cols() + edges.cols()); // expand our point matrix to hold all the points
+      // Put the points on our matrix
+      for (int i = 0; i < edges.cols(); i++) {
+        points.addCol(edges.getCol(i));
+      }
     } else if (cmdchar == 'i') {
       transform = Mat::Identity();
     } else if (cmdchar == 's') {

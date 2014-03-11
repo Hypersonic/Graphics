@@ -7,6 +7,7 @@
 #include <unistd.h>
 
 #include "geometry/point.h"
+#include "geometry/bezier.h"
 #include "canvas/canvas.h"
 #include "math/Mat.h"
 #include "debug.h"

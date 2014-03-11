@@ -416,6 +416,24 @@ void MDL::TestLine() {
   assert(pts.getCol(1) == expected);
 }
 
+void MDL::TestBezier() {
+  printf(dbgfmt.c_str(), "Bezier Test");
+  Mat pts, trans;
+  Canvas can = Canvas(640, 480, true);
+  std::string cmd = "b\n0 0 0 100 100 100 20 10"; // Create a curve
+  std::stringbuf buf;
+  std::istream stream (&buf); // Create an istream containing our buffer
+  buf.str(cmd);
+
+  MDLParser::ParseCmd(stream, can, pts, trans);
+  // Check that the first and last points match
+  Vec4f expected;
+  expected = Vec4f(0,0,0,1);
+  assert(pts.getCol(0) == expected);
+  expected = Vec4f(20,10,0,1);
+  assert(pts.getCol(pts.cols()-2) == expected); //-2 because lines each take up two
+}
+
 void MDL::TestIdentity() {
   printf(dbgfmt.c_str(), "Testing Identity Matrix");
   Mat pts, trans, expected;
@@ -579,6 +597,7 @@ void MDL::RunMDLTests() {
   printf(dbgfmt.c_str(), "MDL Tests");
   using namespace Tests::MDL;
   TestLine();
+  TestBezier();
   TestIdentity();
   TestScale();
   TestTranslation();

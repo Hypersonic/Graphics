@@ -58,6 +58,7 @@ namespace MDL {
   void RunMDLTests();
 
   void TestLine();
+  void TestBezier();
   void TestIdentity();
   void TestScale();
   void TestTranslation();
