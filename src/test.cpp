@@ -220,6 +220,23 @@ void Vector::ThreeDee::TestMultiplication() {
   assert(abs(expected - actual) < epsilon);
 }
 
+void Geometry::TestBezier() { 
+  BezierCurve curve;
+  printf(dbgfmt.c_str(), "Testing Bezier Curves");
+
+  curve.add_point(Vec4f(0, 0, 0, 1));
+  curve.add_point(Vec4f(100, 200, 0, 1));
+  curve.add_point(Vec4f(200, 200, 0, 1));
+
+  assert(curve.num_points() == 3);
+
+  // Check that the last value in the list has been properly set to 1
+  auto pts = curve.edges();
+  for (int i = 0; i < pts.cols(); i++) {
+    assert((pts.getCol(i)[3] - 1) < epsilon);
+  }
+}
+
 void Matrix::TestAccessors() {
   Vec4f expected;
   printf(dbgfmt.c_str(), "Testing Accessor Methods");
@@ -509,6 +526,7 @@ void MDL::TestZRotation() {
 void Tests::RunAllTests() {
   printf(dbgfmt.c_str(), "Starting Tests");
   Vector::RunVectorTests();
+  Geometry::RunGeometryTests();
   Matrix::RunMatrixTests();
   MDL::RunMDLTests();
   printf(dbgfmt.c_str(), "All Tests Passed");
@@ -540,6 +558,12 @@ void Vector::ThreeDee::RunThreeDeeTests() {
   TestSubtraction();
   TestNegation();
   TestMultiplication();
+}
+
+void Geometry::RunGeometryTests() {
+  printf(dbgfmt.c_str(), "Geometry Tests");
+  using namespace Tests::Geometry;
+  TestBezier();
 }
 
 void Matrix::RunMatrixTests() {

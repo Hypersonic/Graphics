@@ -15,6 +15,8 @@ public:
   Vec4f  operator[](const int index) const { return _pts[index]; }
   Vec4f& operator[](const int index)       { return _pts[index]; }
 
+  int num_points() { return _pts.size(); }
+
   void add_point(const Vec4f& pt) { _pts.push_back(pt); }
 
   Mat edges();

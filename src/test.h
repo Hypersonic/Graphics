@@ -7,6 +7,7 @@
 #include <istream>
 #include "canvas/canvas.h"
 #include "geometry/point.h"
+#include "geometry/bezier.h"
 #include "math/Mat.h"
 #include "dw/MDL.h"
 
@@ -37,6 +38,11 @@ namespace ThreeDee {
   void TestMultiplication();
 }
 
+}
+
+namespace Geometry {
+  void RunGeometryTests();
+  void TestBezier();
 }
 
 namespace Matrix {
