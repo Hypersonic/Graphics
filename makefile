@@ -6,7 +6,7 @@ TESTS = $(patsubst src/%.cpp,test_objs/%.o, $(wildcard src/*.cpp) $(foreach d, $
 
 CXX = g++
 PLATFORM_LIBS = 
-WARNINGS = -Wall -Wextra -Werror -Wfloat-equal -Winit-self -Wshadow -Wpointer-arith -Wcast-align -Wstrict-prototypes -Wwrite-strings -Wunreachable-code -Wold-style-definition -Wstrict-prototypes -Wmissing-prototypes -Wstrict-overflow=2 --pedantic
+WARNINGS = -Wall -Wextra -Werror -Weffc++ -Wfloat-equal -Winit-self -Wshadow -Wpointer-arith -Wcast-align -Wstrict-prototypes -Wwrite-strings -Wunreachable-code -Wold-style-definition -Wstrict-prototypes -Wmissing-prototypes -Wstrict-overflow=2 --pedantic
 FEATURES = -fno-builtin -ffunction-sections
 CFLAGS = -std=c++11 -O -g -march=native $(WARNINGS) $(FEATURES)
 
