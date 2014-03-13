@@ -426,12 +426,12 @@ void MDL::TestBezier() {
   buf.str(cmd);
 
   MDLParser::ParseCmd(stream, can, pts, trans);
-  // Check that the first and last points match
+  // Check that the first point, we don't really have garuntees on the others :(
   Vec4f expected;
   expected = Vec4f(0,0,0,1);
   assert(pts.getCol(0) == expected);
   expected = Vec4f(20,10,0,1);
-  assert(pts.getCol(pts.cols()-2) == expected); //-2 because lines each take up two
+  assert(pts.getCol(pts.cols() - 1) == expected);
 }
 
 void MDL::TestIdentity() {
