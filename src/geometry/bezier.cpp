@@ -24,6 +24,7 @@ Vec4f BezierCurve::bezier(float t, std::vector<Vec4f>::iterator lower, std::vect
     return *lower;
   } else {
     std::vector<Vec4f> pts;
+    pts.reserve(upper-lower);
     for (; lower < upper; lower++) {
       pts.push_back(*(lower)*(1-t) + *(lower+1)*(t));
     }
