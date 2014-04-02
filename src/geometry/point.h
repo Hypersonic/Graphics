@@ -52,6 +52,10 @@ public:
                                                _z*vec._z + _r*vec._r;       }
   Vec4f operator * (const float f   ) const { return Vec4f(f*_x, f*_y,
                                                            f*_z, f*_r);     }
+  Vec4f operator / (float divisor   ) const { return Vec4f(_x/divisor,
+                                                           _y/divisor,
+                                                           _z/divisor,
+                                                           _r/divisor);     }
   Vec4f operator - ()           const { return Vec4f(-_x, -_y, -_z, -_r);   }
 
   float  operator [](const int index) const { return (&_x)[index]; }

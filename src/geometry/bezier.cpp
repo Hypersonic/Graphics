@@ -3,7 +3,7 @@
 Mat BezierCurve::edges() {
   Mat res;
   float step = 1.0f / Settings::resolution;
-  res.reserve(2.0f/step);
+  res.reserve(2 * Settings::resolution);
   for (float t = 0; t < 1-step; t += step) {
     Vec4f pt1 = BezierCurve::bezier(t       , _pts.begin(), _pts.end()-1);
     Vec4f pt2 = BezierCurve::bezier(t + step, _pts.begin(), _pts.end()-1);

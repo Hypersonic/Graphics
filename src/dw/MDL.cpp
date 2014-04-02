@@ -30,7 +30,25 @@ void MDLParser::ParseCmd(std::istream& file, Canvas& can, Mat& points, Mat& tran
     } else if (cmdchar == 'c') { 
       //TODO: add circle to edge matrix
     } else if (cmdchar == 'h') {
-      //TODO: add hermite curve to edge matrix
+      // Let's just do this hacky and put a bezier curve
+      // with the middle two hermite points avgd
+      Vec4f control_points[4];
+      BezierCurve curve;
+      for (int i = 0; i < 4; i++) {
+        for (int j = 0; j < 2; j++) {
+          file >> control_points[i][j];
+        }
+      }
+      curve.add_point(control_points[0]);
+      curve.add_point((control_points[1] + control_points[2]) / 2);
+      curve.add_point(control_points[3]);
+      Mat edges = curve.edges();
+      // expand our point matrix to hold all the points
+      points.reserve(points.cols() + edges.cols());
+      // Put the points on our matrix
+      for (int i = 0; i < edges.cols(); i++) {
+        points.addCol(edges.getCol(i));
+      }
     } else if (cmdchar == 'b') {
       BezierCurve curve;
       Vec4f pt = Vec4f();
@@ -42,7 +60,8 @@ void MDLParser::ParseCmd(std::istream& file, Canvas& can, Mat& points, Mat& tran
         curve.add_point(pt);
       }
       Mat edges = curve.edges();
-      points.reserve(points.cols() + edges.cols()); // expand our point matrix to hold all the points
+      // expand our point matrix to hold all the points
+      points.reserve(points.cols() + edges.cols());
       // Put the points on our matrix
       for (int i = 0; i < edges.cols(); i++) {
         points.addCol(edges.getCol(i));
